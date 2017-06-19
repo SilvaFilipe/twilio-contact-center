@@ -22,7 +22,7 @@ module.exports.welcome = function (req, res) {
 		method: 'GET',
 		numDigits: 1,
 		timeout: 4,
-		language: 'pt-pt',
+		language: 'pt-PT',
 		hints: keywords.join()
 	}, function (node) {
 		node.say(req.configuration.ivr.text)
