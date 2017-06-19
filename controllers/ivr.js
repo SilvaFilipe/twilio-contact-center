@@ -22,7 +22,7 @@ module.exports.welcome = function (req, res) {
 		method: 'GET',
 		numDigits: 1,
 		timeout: 4,
-		language: 'en-us',
+		language: 'pt-pt',
 		hints: keywords.join()
 	}, function (node) {
 		node.say(req.configuration.ivr.text)
@@ -87,7 +87,7 @@ module.exports.selectTeam = function (req, res) {
 			numDigits: 1,
 			timeout: 5
 		}, function (node) {
-			node.say('Press a key if you want a callback from ' + team.friendlyName + ', or stay on the line')
+			node.say('Pressione uma tecla se quer uma chamada de volta ' + team.friendlyName + ', or stay on the line')
 		})
 
 		/* create task attributes */
