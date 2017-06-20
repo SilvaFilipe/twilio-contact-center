@@ -11,7 +11,7 @@ app.controller('PhoneController', function ($scope, $rootScope, $http, $timeout,
 		Twilio.Device.setup(data.token, {debug: true});
 
 		Twilio.Device.ready(function (device) {
-			$scope.status = 'Ready';
+			$scope.status = 'Pronto';
 		});
 
 		Twilio.Device.error(function (error) {
@@ -63,7 +63,7 @@ app.controller('PhoneController', function ($scope, $rootScope, $http, $timeout,
 			conn.accept();
 
 			conn.disconnect(function (conn) {
-				$scope.status = 'call has ended';
+				$scope.status = 'chamada terminada';
 				$scope.isActive = false;
 				$scope.$apply();
 			});
