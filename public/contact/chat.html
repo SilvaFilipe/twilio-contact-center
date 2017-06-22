@@ -76,7 +76,7 @@
 						<form class="chat-message-form form-horizontal" name="chatMessageForm" ng-hide="session.expired" style="margin-top:5px">
 							<div class="form-group">
 								<div class="col-xs-8">
-									<input ng-model="message" ng-model-options="{ debounce: 250 }" ng-required="true" autocomplete="off" ng-focus="focused()" name="text" type="text" class="form-control" placeholder="say something">
+									<input ng-model="message" ng-model-options="{ debounce: 250 }" ng-required="true" autocomplete="off" ng-focus="focused()" name="text" type="text" class="form-control" placeholder="Say something...">
 								</div>
 								<div class="col-xs-4">
 									<button ng-disabled="chatMessageForm.$invalid || chatMessageForm.$pristine" class="btn btn-primary" ng-click="send()">Send</button>
@@ -95,7 +95,7 @@
 				<h4 class="caller-id" style="margin:0px">{{configuration.twilio.callerId}}</h4>
 
 				<h3>Request a callback?</h3>
-				<h4><a href="index.html">Click here</a></h4>
+				</h3><a href="index.html">Click here</a></h4>
 
 			</div>
 

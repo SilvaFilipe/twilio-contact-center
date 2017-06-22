@@ -123,7 +123,7 @@
             <form class="chat-message-form form-horizontal" name="chatMessageForm">
               <div class="form-group">
                 <div class="col-xs-8">
-                  <input ng-model="message" ng-model-options="{ debounce: 250 }" ng-required="true" autocomplete="off" ng-focus="focused()" name="text" type="text" class="form-control" placeholder="say something">
+                  <input ng-model="message" ng-model-options="{ debounce: 250 }" ng-required="true" autocomplete="off" ng-focus="focused()" name="text" type="text" class="form-control" placeholder="Say something...">
                 </div>
                 <div class="col-xs-4">
                   <button ng-disabled="chatMessageForm.$invalid || chatMessageForm.$pristine" class="btn btn-primary" ng-click="send()">Send</button>
@@ -143,7 +143,7 @@
      
     <section ng-controller="PhoneController" ng-cloak class="phone-controller" >
 
-      <input style="font-size:2em; padding-left:10px;" ng-show="isActive == false" ng-model="phoneNumber" type="text" name="phoneNumber" placeholder="+.." />
+      <input style="font-size:2em; padding-left:10px;" ng-show="isActive == false" ng-model="phoneNumber" type="text" name="phoneNumber" placeholder="+..." />
       <div class="phone-number" style="font-size:2em; padding-left:10px" ng-if="isActive == true" />{{phoneNumber}}</div>
 
       <div class="keypad">
