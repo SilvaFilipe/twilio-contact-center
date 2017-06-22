@@ -6,6 +6,17 @@ function TaskWaitingTime() {
    	let seconds = value - (minutes * 60);
     let hours = minutes/60;
     let minutes1=minutes;
+    let hours2=360; //15 dias
+    let hours3=360;
+
+    for(hours2=360; hours2>=0; hours2--){
+        if (hours2>hours)
+        {hours3=hours2-1;}
+    }
+
+    if (hours3 < 10){
+      hours3 = '0' + hours3;
+    }
 
     if (hours < 10){
       hours = '0' + hours;
@@ -27,7 +38,7 @@ function TaskWaitingTime() {
       seconds = '0' + seconds;
     }
 
-   return hours + ':' + minutes1 + ':' + seconds;
+   return hours3 + ':' + minutes1 + ':' + seconds;
   };
 
 }
