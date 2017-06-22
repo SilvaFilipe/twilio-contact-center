@@ -2,9 +2,13 @@ function TaskWaitingTime() {
   
   return function(value) {
 
-    let minutes = Math.floor(value / 60);
+    let hours = Math.floor(value / 3600);
+    let minutes = value - (hours * 60);
    	let seconds = value - (minutes * 60);
-    let hours = minutes/60;
+
+     if (hours < 10){
+      hours = '0' + hours;
+    }
 
     if (minutes < 10){
       minutes = '0' + minutes;
@@ -14,11 +18,7 @@ function TaskWaitingTime() {
       seconds = '0' + seconds;
     }
 
-    if(hours>0){
-      minutes=minutes-(hours*60);
-    }
-
-    return hours + ':' +minutes + ':' + seconds;
+    return hours + ':' + minutes + ':' + seconds;
   };
 
 }
