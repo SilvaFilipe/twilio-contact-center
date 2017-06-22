@@ -4,7 +4,7 @@ function TaskWaitingTime() {
 
     let minutes = Math.floor(value / 60);
    	let seconds = value - (minutes * 60);
-    var hours = minutes/60;
+    let hours = minutes/60;
 
     if (hours < 10){
       hours = '0' + hours;
