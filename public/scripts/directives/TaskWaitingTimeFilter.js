@@ -13,7 +13,7 @@ function TaskWaitingTime() {
       seconds = '0' + seconds;
     }
 
-    return minutes + ':' + seconds;
+    return minutes + '::::' + seconds;
   };
 
 }
