@@ -14,8 +14,8 @@
   <div class="row">
 
     <div class=" col-md-6 col-md-offset-3">
-      <h2>Bem-vindo</h2>
-      <p class="lead">Por favor insira o seu nome de agente</p>
+      <h2>Agent page</h2>
+      <p class="lead">Please enter your agent name.</p>
     </div>
 
     <div ng-controller="LoginController" class="well col-md-6 col-md-offset-3">
@@ -24,14 +24,14 @@
 
         <div class="form-group">
           <div class="col-xs-12">
-            <input class="form-control" ng-focus="reset()" type="text" name="friendlyName" placeholder="Nome" ng-model="worker.friendlyName" required>
+            <input class="form-control" ng-focus="reset()" type="text" name="friendlyName" placeholder="Name" ng-model="worker.friendlyName" required>
           </div>
         </div>
 
         <div class="form-group">
           <div class="col-xs-12">
             <button ng-disabled="loginForm.friendlyName.$invalid" type="submit" class="btn btn-primary">Log In</button>
-            <div><a href="/" style="margin:8px 0px 0px 0px" class="btn btn-primary">Voltar</a></div>
+            <div><a href="/" style="margin:8px 0px 0px 0px" class="btn btn-primary">Back</a></div>
           </div>
         </div>
 

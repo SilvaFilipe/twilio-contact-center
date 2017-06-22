@@ -11,7 +11,7 @@ app.controller('PhoneController', function ($scope, $rootScope, $http, $timeout,
 		Twilio.Device.setup(data.token, {debug: true});
 
 		Twilio.Device.ready(function (device) {
-			$scope.status = 'Pronto';
+			$scope.status = 'Ready';
 		});
 
 		Twilio.Device.error(function (error) {
