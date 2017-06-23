@@ -24,7 +24,7 @@
 
      <div class="panel-body">
            <span><h3 class="name" class="page-header">Agent: {{worker.friendlyName}}</h3>  
-         <p ng-click="logout()" style = "font-size:16px" ></p><strong>Logout</strong></span>
+         <p ng-click="logout()" class="btn btn-primary" style = "font-size:16px" ></p><strong>Logout</strong></span>
 
         <div><h1 style = "font-size:16px" >Status:&nbsp;</h1><span  style="font-size:1.5em" ng-class="{'label-success': worker.activityName == 'Idle', 'label-danger': worker.activityName == 'Busy', 'label-default': worker.activityName == 'Offline', 'label-warning': worker.activityName == 'Reserved'}" class="label">{{worker.activityName}}</span></div>
         
