@@ -30,7 +30,7 @@
 						<legend>Callback</legend>
 
 						<div class="form-group">
-							<label class="col-md-4 control-label">Department</label>
+							<label class="col-md-4 control-label">Select the department:</label>
 							<div class="col-md-8">
 								<select ng-model="question.team" class="form-control" id="team" required>
 									<option ng-repeat="option in configuration.ivr.options" value="{{ option.id }}">{{ option.friendlyName }}</option>
@@ -47,10 +47,11 @@
 						</div>
 
 						<div class="form-group">
-							<label class="col-md-4 control-label">Your name and phone number?</label>
+							<label class="col-md-4 control-label">What is your name?</label>
 							<div class="col-md-4">
 								<input type="text" placeholder="Name" name="name" ng-model="question.name" class="form-control" required>
 							</div>
+							<label class="col-md-4 control-label">What phone do you want a callback to?</label>
 							<div class="col-md-4">
 								<input ng-model-options="{ debounce: 1000 }" type="text" placeholder="+..." name="phone" ng-model="question.phone" class="form-control" required phone-number>
 							</div>
