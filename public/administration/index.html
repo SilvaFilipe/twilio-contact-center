@@ -126,7 +126,9 @@
 
         </div>
 
-        <button ng-disabled="ivrForm.$invalid || ivrForm.$pristine || UI.isSaving" class="btn btn-primary" ng-click="saveIvr()"><span style="margin-right: 10px;" ng-show="UI.isSaving == true"><i class="fa fa-refresh fa-spin"></i></span>Save IVR</button>
+        <button ng-disabled="ivrForm.$invalid || ivrForm.$pristine || UI.isSaving" class="btn btn-primary" ng-click="saveIvr()">
+          <span style="margin-right: 10px;" ng-show="UI.isSaving == true"><i class="fa fa-refresh fa-spin"></i></span>Save IVR</button>
+          <div><a href="/" style="margin:8px 0px 0px 8px"  class="btn btn-primary">Back</a></div>
 </form>
       </div>
 
