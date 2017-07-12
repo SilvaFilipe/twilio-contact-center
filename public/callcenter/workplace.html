@@ -16,7 +16,7 @@
 <div ng-show="UI.warning.browser" class="panel panel-default ui-warning" ng-cloak>{{UI.warning.browser}}</div>
 <div ng-show="UI.warning.worker" class="panel panel-default ui-warning" ng-cloak>{{UI.warning.worker}}</div>
 
-<div class="container" style="width:340px">
+<div class="container" style="width:350px">
 
   <section class="workflow-controller" ng-cloak>
 
@@ -143,8 +143,8 @@
      
     <section ng-controller="PhoneController" ng-cloak class="phone-controller" >
 
-      <input style="font-size:2em; padding-left:50px;" ng-show="isActive == false" ng-model="phoneNumber" type="text" name="phoneNumber" placeholder="+..." />
-      <div class="phone-number" style="font-size:2em; padding-left:100px" ng-if="isActive == true" />{{phoneNumber}}</div>
+      <input style="font-size:2em; padding-left:10px;" ng-show="isActive == false" ng-model="phoneNumber" type="text" name="phoneNumber" placeholder="+..." />
+      <div class="phone-number" style="font-size:2em; padding-left:10px" ng-if="isActive == true" />{{phoneNumber}}</div>
 
       <div class="keypad">
 
