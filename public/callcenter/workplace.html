@@ -154,7 +154,7 @@
 
         <div ng-click="addDigit('4')" class="digit">4</div>
         <div ng-click="addDigit('5')" class="digit">5</div>
-        <div ng-click="addDigit('6')" class="digit">6</div>
+
 
         <div ng-click="addDigit('7')" class="digit">7</div>
         <div ng-click="addDigit('8')" class="digit">8</div>
@@ -166,8 +166,8 @@
 
       </div>
 
-      <button class="button-call" ng-if="isActive == false" ng-click="call(phoneNumber)">CALL</button>
-      <button class="button-hangup" ng-if="isActive == true" ng-click="hangup()">HANGUP</button>
+      <button class="button-call font-size:1.0em;" ng-if="isActive == false" ng-click="call(phoneNumber)">CALL</button>
+      <button class="button-hangup font-size:1.0em;" ng-if="isActive == true" ng-click="hangup()">HANGUP</button>
       <span class="status">Status: {{status}}</span>
       <span ng-if="error != null" class="status">Error: {{error}}</span>
     </section>
