@@ -23,8 +23,8 @@
     <div class="panel panel-default">
 
      <div class="panel-body">
-           <a ng-click="logout()" style="font-size:0.8em"  class="btn btn-primary" >Logout</a>
-           <span><h3 class="name" style="font-size:1.0em" class="page-header">Agent: {{worker.friendlyName}}</h3> </span> 
+            <span><h3 class="name" style="font-size:1.2em" class="page-header">Agent: {{worker.friendlyName}}</h3> <a ng-click="logout()" style="font-size:0.7em"  class="btn btn-primary" >Logout</a> </span>
+          
          
 
         <div><span  style="font-size:1.0em" ng-class="{'label-success': worker.activityName == 'Idle', 'label-danger': worker.activityName == 'Busy', 'label-default': worker.activityName == 'Offline', 'label-warning': worker.activityName == 'Reserved'}" class="label">{{worker.activityName}}</span></div>
