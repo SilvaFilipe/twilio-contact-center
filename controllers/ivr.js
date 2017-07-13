@@ -18,19 +18,14 @@ module.exports.welcome = function (req, res) {
 		keywords.push(req.configuration.ivr.options[i].friendlyName)
 	}
 
-	const response = new twilio();
-response.say({
-    language: 'sv-SE'
-}, 'Hej!');
-
 	twiml.gather({
 		input: 'dtmf speech',
 		action: 'select-team',
 		method: 'GET',
 		numDigits: 1,
-		timeout: 4,
-		voice: 'alice',
-		language: 'fr-FR',
+		timeout: 5,
+		/*voice: 'alice',
+		language: 'fr-FR',*/
 		hints: keywords.join()
 	}, function (node) {
 		node.say(req.configuration.ivr.text)
