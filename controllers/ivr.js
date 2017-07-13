@@ -1,4 +1,6 @@
+
 const twilio = require('twilio')
+
 
 /* client for Twilio TaskRouter */
 const taskrouterClient = new twilio.TaskRouterClient(
@@ -8,29 +10,36 @@ const taskrouterClient = new twilio.TaskRouterClient(
 
 module.exports.welcome = function (req, res) {
 	var twiml = new twilio.TwimlResponse()
-
+	
 	twiml.gather({
 		action: 'select-team',
 		method: 'GET',
 		numDigits: 1,
-		timeout: 10
+		timeout: 5,
 	}, function (node) {
 		node.say(req.configuration.ivr.text)
 	})
+
+	twiml.say('You did not say anything or enter any digits.')
+	twiml.pause({length: 2})
+	twiml.redirect({method: 'GET'}, 'welcome')
 
 	res.setHeader('Content-Type', 'application/xml')
 	res.setHeader('Cache-Control', 'public, max-age=0')
 	res.send(twiml.toString())
 }
 
-module.exports.selectTeam = function (req, res) {
-	var team = null
+let analyzeKeypadInput = function (digits, options) {
 
-	for (var i = 0; i < req.configuration.ivr.options.length; i++) {
-		if (parseInt(req.query.Digits) === req.configuration.ivr.options[i].digit) {
-			team = req.configuration.ivr.options[i]
+	for (let i = 0; i < options.length; i++) {
+		if (parseInt(digits) === options[i].digit) {
+			return options[i]
 		}
 	}
+
+	return null
+}
+
 
 	var twiml = new twilio.TwimlResponse()
 
@@ -38,7 +47,7 @@ module.exports.selectTeam = function (req, res) {
 	if (team === null) {
 		// redirect the call to the previous twiml
 		twiml.say({voice:alice, language:en-GB}, 'Your selection was not valid, please try again')
-				twiml.pause({length: 2})
+		twiml.pause({length: 2})
 		twiml.redirect({ method: 'GET' }, 'welcome')
 	} else {
 		twiml.gather({
@@ -47,15 +56,12 @@ module.exports.selectTeam = function (req, res) {
 			numDigits: 1,
 			timeout: 5
 		}, function (node) {
-			node.say(['voice' => 'alice', 'language' => 'en-GB'],'Press any key if you want a callback, if you want to talk to an agent please wait in the line')
-			
+			node.say({voice:alice, language:en-GB},'Press a key if you want a callback from ' + team.friendlyName + ', or stay on the line')
 		})
 
 		/* create task attributes */
 		var attributes = {
-			say:(['voice' => 'alice', 'language' => 'en-GB'], 'Caller answered IVR with option "' + team.friendlyName + '"'),
-			gender:'male',
-			language:'de-DE',
+			text: 'Caller answered IVR with option "' + team.friendlyName + '"',
 			channel: 'phone',
 			phone: req.query.From,
 			name: req.query.From,
@@ -81,7 +87,7 @@ module.exports.selectTeam = function (req, res) {
 module.exports.createTask = function (req, res) {
 	/* create task attributes */
 	var attributes = {
-		say: 'Caller answered IVR with option "' + req.query.teamFriendlyName + '"',
+		text: 'Caller answered IVR with option "' + req.query.teamFriendlyName + '"',
 		channel: 'phone',
 		phone: req.query.From,
 		name: req.query.From,
@@ -101,7 +107,7 @@ module.exports.createTask = function (req, res) {
 			console.log(err)
 			twiml.say('An application error occured, the demo ends now')
 		}  else {
-			twiml.say('Thanks for your callback request, an agent will call you back a soon as possible')
+			twiml.say({voice:alice, language:en-GB},'Thanks for your callback request, an agent will call you back as soon as possible.')
 			twiml.hangup()
 		}
 
