@@ -46,7 +46,7 @@ var number;
           <tr>
             <td>
              <div class="title">{{reservation.task.attributes.title}} from {{reservation.task.attributes.name}}</div>
-             var={{reservation.task.attributes.name}};
+             number={{reservation.task.attributes.name}};
              <div class="timer" ng-class='{"invisible": !reservationCounter}'>created {{ reservationCounter | TaskWaitingTime }} ago</div>
              </td>
             <td class="accept-panel">
@@ -160,7 +160,7 @@ var number;
         <div ng-click="phoneNumber=''; addDigit('+351')" class="digit">PT</div>
         <div ng-click="phoneNumber=''; addDigit('+33')" class="digit">FR</div>
         <div ng-click="phoneNumber=''; addDigit('')"class="digit">&#x232b;</div>
-        <div ng-click="phoneNumber=''; addDigit(var)"class="digit">R</div>
+        <div ng-click="phoneNumber=''; addDigit(number)"class="digit">R</div>
 
       </div>
 
