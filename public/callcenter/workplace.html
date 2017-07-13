@@ -38,15 +38,15 @@
         </div>
         <div class="panel-body">
 
-          <table>
+        
           <tr>
             <td>
              <div class="title">{{reservation.task.attributes.title}} from {{reservation.task.attributes.name}}</div>
              <div class="timer" ng-class='{"invisible": !reservationCounter}'>created {{ reservationCounter | TaskWaitingTime }} ago</div>
              </td>
-            <td class="title"><button ng-click="acceptReservation(reservation)">Accept</button></td>
+            <td class="accept-panel"><button ng-click="acceptReservation(reservation)">Accept</button></td>
           </tr>
-          </table>
+          
 
         </div>
       </div>
