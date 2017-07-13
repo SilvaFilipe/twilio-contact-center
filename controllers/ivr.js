@@ -22,8 +22,8 @@ module.exports.welcome = function (req, res) {
 		method: 'GET',
 		numDigits: 1,
 		timeout: 4,
-		voice: 'woman',
-		language: 'fr',
+		voice: 'alice',
+		language: 'fr-FR',
 		hints: keywords.join()
 	}, function (node) {
 		node.say(req.configuration.ivr.text)
