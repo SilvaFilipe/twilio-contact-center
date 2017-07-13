@@ -1,4 +1,6 @@
+const VoiceResponse = require('twilio').twiml.VoiceResponse;
 const twilio = require('twilio')
+
 
 /* client for Twilio TaskRouter */
 const taskrouterClient = new twilio.TaskRouterClient(
