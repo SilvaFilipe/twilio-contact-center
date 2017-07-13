@@ -41,7 +41,7 @@
         
           <tr>
             <td>
-             <div class="title">{{reservation.task.attributes.title}} from {{reservation.task.attributes.name}}</div>
+             <div class="title">{{reservation.task.attributes.title}} from {{reservation.task.attributes.name}} {{reservation.task.attributes.name}}</div>
              <div class="timer" ng-class='{"invisible": !reservationCounter}'>created {{ reservationCounter | TaskWaitingTime }} ago</div>
              </td>
             <td class="accept-panel">
