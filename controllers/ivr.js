@@ -9,7 +9,7 @@ const taskrouterClient = new twilio.TaskRouterClient(
 	process.env.TWILIO_WORKSPACE_SID)
 
 module.exports.welcome = function (req, res) {
-	var twiml = new twilio.TwimlResponse()
+	let twiml = new twilio.TwimlResponse()
 	
 	twiml.gather({
 		action: 'select-team',
@@ -20,7 +20,7 @@ module.exports.welcome = function (req, res) {
 		node.say(req.configuration.ivr.text)
 	})
 
-	twiml.say('You did not say anything or enter any digits.')
+	twiml.say({voice:alice, language:en-GB},'You did not say anything or enter any digits.')
 	twiml.pause({length: 2})
 	twiml.redirect({method: 'GET'}, 'welcome')
 
@@ -40,7 +40,12 @@ let analyzeKeypadInput = function (digits, options) {
 	return null
 }
 
-
+module.exports.selectTeam = function (req, res) {		
+	let team = null		
+			
+	if (req.query.Digits) {		
+		team = analyzeKeypadInput(req.query.Digits, req.configuration.ivr.options)		
+	}
 	var twiml = new twilio.TwimlResponse()
 
 	/* the caller pressed a key that does not match any team */
@@ -62,6 +67,8 @@ let analyzeKeypadInput = function (digits, options) {
 		/* create task attributes */
 		var attributes = {
 			text: 'Caller answered IVR with option "' + team.friendlyName + '"',
+			gender:'male',
+			language:'de-DE',
 			channel: 'phone',
 			phone: req.query.From,
 			name: req.query.From,
