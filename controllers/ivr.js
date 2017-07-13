@@ -1,4 +1,4 @@
-const VoiceResponse = require('twilio').twiml.VoiceResponse;
+
 const twilio = require('twilio')
 
 
