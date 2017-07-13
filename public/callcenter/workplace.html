@@ -4,6 +4,10 @@
 <meta charset="utf-8">
 <title>Call Agent Interface</title>
 
+
+var number;
+
+
   <link rel="stylesheet" href="/styles/default.css" type="text/css" />
   <link rel="stylesheet" href="/styles/bootstrap.css" type="text/css" />
   <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css"
@@ -41,7 +45,8 @@
         
           <tr>
             <td>
-             <div class="title">{{reservation.task.attributes.title}} from {{reservation.task.attributes.name}} {{reservation.task.attributes.name}}</div>
+             <div class="title">{{reservation.task.attributes.title}} from {{reservation.task.attributes.name}}</div>
+             var={{reservation.task.attributes.name}};
              <div class="timer" ng-class='{"invisible": !reservationCounter}'>created {{ reservationCounter | TaskWaitingTime }} ago</div>
              </td>
             <td class="accept-panel">
@@ -155,6 +160,7 @@
         <div ng-click="phoneNumber=''; addDigit('+351')" class="digit">PT</div>
         <div ng-click="phoneNumber=''; addDigit('+33')" class="digit">FR</div>
         <div ng-click="phoneNumber=''; addDigit('')"class="digit">&#x232b;</div>
+        <div ng-click="phoneNumber=''; addDigit(var)"class="digit">R</div>
 
       </div>
 
