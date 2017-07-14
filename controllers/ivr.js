@@ -25,7 +25,7 @@ module.exports.welcome = function (req, res) {
 		language: 'en-us',
 		hints: keywords.join()
 	}, function (node) {
-		node.say(req.configuration.ivr.text)
+		node.say('blablalbalbllbalblalba')
 	})
 
 	twiml.say('You did not say anything or enter any digits.')
