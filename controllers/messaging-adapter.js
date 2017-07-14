@@ -1,11 +1,23 @@
-const Twilio 	= require('twilio')
+const twilio = require('twilio')
 const async = require('async')
 
-const taskrouterHelper = require('./helpers/taskrouter-helper.js')
-
-const client = new Twilio(
+/* client for Twilio Programmable Voice */
+const client = new twilio(
 	process.env.TWILIO_ACCOUNT_SID,
 	process.env.TWILIO_AUTH_TOKEN)
+
+/* client for Twilio TaskRouter */
+const taskrouterClient = new twilio.TaskRouterClient(
+	process.env.TWILIO_ACCOUNT_SID,
+	process.env.TWILIO_AUTH_TOKEN,
+	process.env.TWILIO_WORKSPACE_SID)
+
+/* client for Twilio Programmable Chat */
+const chatClient = new twilio.IpMessagingClient(
+	process.env.TWILIO_ACCOUNT_SID,
+	process.env.TWILIO_AUTH_TOKEN)
+
+const service = chatClient.services(process.env.TWILIO_CHAT_SERVICE_SID)
 
 module.exports.inbound = function (req, res) {
 	req.direction = 'inbound: '
@@ -21,19 +33,19 @@ module.exports.inbound = function (req, res) {
 		return res.status(500).json({ message: 'Invalid request body. "Body" is required' })
 	}
 
-	retrieveChannel(req).then(function (channel) {
+	module.exports.retrieveChannel(req).then(function (channel) {
 		console.log(req.direction + 'channel ' + channel.sid + ' received')
 
-		return taskrouterHelper.getOngoingTasks(req.body.From).then(function (tasks) {
+		return module.exports.getOngoingTasks(req.body.From).then(function (tasks) {
 			console.log(req.direction +  'user ' + req.body.From + ' has ' + tasks.length + ' ongoing task(s)')
 
 			if (tasks.length === 0) {
-				return createTask(req, channel)
+				return module.exports.createTask(req, channel)
 			}
 
 		}).then(function () {
 
-			return client.chat.services(process.env.TWILIO_CHAT_SERVICE_SID).channels(channel.sid).messages.create({
+			return service.channels(channel.sid).messages.create({
 				from: req.body.From,
 				body: req.body.Body
 			}).then(function (message) {
@@ -52,28 +64,27 @@ module.exports.inbound = function (req, res) {
 
 }
 
-var retrieveChannel = function (req) {
+module.exports.retrieveChannel = function (req) {
 	return new Promise(function (resolve, reject) {
 
 		console.log(req.direction + 'retrieve channel via API for user ', req.body.From)
 
-		return client.chat.services(process.env.TWILIO_CHAT_SERVICE_SID).channels('support_channel_' + req.body.From).fetch()
-			.then(function (channel) {
+		return service.channels('support_channel_' + req.body.From).get().then(function (channel) {
+			resolve(channel)
+		}).catch(function (err) {
+			console.error(req.direction + 'retrieve channel failed: %s', JSON.stringify(err, Object.getOwnPropertyNames(err)))
+			return module.exports.createChannel(req).then(function (channel) {
 				resolve(channel)
 			}).catch(function (err) {
-				console.error(req.direction + 'retrieve channel failed: %s', JSON.stringify(err, Object.getOwnPropertyNames(err)))
-				return createChannel(req).then(function (channel) {
-					resolve(channel)
-				}).catch(function (err) {
-					reject(err)
-				})
+				reject(err)
 			})
+		})
 
 	})
 
 }
 
-var createChannel = function (req) {
+module.exports.createChannel = function (req) {
 
 	return new Promise(function (resolve, reject) {
 
@@ -81,7 +92,7 @@ var createChannel = function (req) {
 
 			function (callback) {
 
-				client.chat.services(process.env.TWILIO_CHAT_SERVICE_SID).channels.create({
+				service.channels.create({
 					friendlyName: 'Support Chat with ' + req.body.From,
 					uniqueName: 'support_channel_' + req.body.From,
 					attributes: JSON.stringify({ forwarding: true})
@@ -95,7 +106,7 @@ var createChannel = function (req) {
 
 			}, function (channel, callback) {
 
-				client.chat.services(process.env.TWILIO_CHAT_SERVICE_SID).channels(channel.sid).members.create({
+				service.channels(channel.sid).members.create({
 					identity: req.body.From
 				}).then(function (identity) {
 					console.log(req.direction + 'added member ' + identity.sid  + '(' + req.body.From + ') to channel ' + channel.sid)
@@ -107,7 +118,7 @@ var createChannel = function (req) {
 
 			}, function (channel, callback) {
 
-				createTask(req, channel).then(function (task) {
+				module.exports.createTask(req, channel).then(function (task) {
 					callback(null, channel)
 				}).catch(function (error) {
 					callback(error)
@@ -126,14 +137,33 @@ var createChannel = function (req) {
 
 }
 
-var createTask = function (req, channel) {
+module.exports.getOngoingTasks = function (name) {
 
 	return new Promise(function (resolve, reject) {
-		let title 		= null
-		let text 			= null
-		let endpoint	= null
+		var query = {}
+		query.AssignmentStatus = 'pending,assigned,reserved'
+		query.EvaluateTaskAttributes = 'name=\'' + name + '\''
 
-		if (req.body.From.includes('messenger')) {
+		taskrouterClient.workspace.tasks.list(query, function (err, data) {
+			if (err) {
+				return reject(err)
+			}
+
+			return resolve(data.tasks)
+		})
+
+	})
+
+}
+
+module.exports.createTask = function (req, channel) {
+
+	return new Promise(function (resolve, reject) {
+		var title 		= null
+		var text 			= null
+		var endpoint	= null
+
+		if (req.body.From.includes('Messenger')) {
 			title 		= 'Facebook Messenger request'
 			text 			= 'Customer requested support on Faceboook'
 			endpoint 	= 'messenger'
@@ -143,87 +173,90 @@ var createTask = function (req, channel) {
 			endpoint 	= 'sms'
 		}
 
-		const attributes = {
-			title: title,
-			text: text,
-			channel: 'chat',
-			endpoint: endpoint,
-			team: 'support',
-			name: req.body.From,
-			channelSid: channel.sid
-		}
-
-		taskrouterHelper.createTask(req.configuration.twilio.workflowSid, attributes).then(task => {
-			console.log(req.direction + 'task ' + task.sid + ' created with attributes %j', task.attributes)
-			resolve(task)
-		}).catch(error => {
-			console.error('create task failed: %s', JSON.stringify(error, Object.getOwnPropertyNames(error)))
-			reject(error)
+		taskrouterClient.workspace.tasks.create({
+			workflowSid: req.configuration.twilio.workflowSid,
+			attributes: JSON.stringify({
+				title: title,
+				text: text,
+				channel: 'chat',
+				endpoint: endpoint,
+				team: 'support',
+				name: req.body.From,
+				channelSid: channel.sid
+			}), timeout: 3600
+		}, function (err, task) {
+			if (err) {
+				console.error('create task failed: %s', JSON.stringify(err, Object.getOwnPropertyNames(err)))
+				reject(err)
+			} else {
+				console.log(req.direction + 'task ' + task.sid + ' created with attributes %j', task.attributes)
+				resolve(task)
+			}
 		})
 
 	})
 
 }
 
-var forwardChannel = function (channel, req) {
+module.exports.forwardChannel = function (channel, req) {
 
-	return client.chat.services(process.env.TWILIO_CHAT_SERVICE_SID).channels(channel.sid).members.list()
-		.then(function (members) {
+	return service.channels(channel.sid).members.list().then(function (data) {
 
-			return new Promise(function (resolve, reject) {
-				console.log(req.direction + 'channel ' + channel.sid + ' has ' + members.length + ' member(s)')
+		return new Promise(function (resolve, reject) {
+			console.log(req.direction + 'channel ' + channel.sid + ' has ' + data.members.length + ' member(s)')
 
-				async.each(members, function (member, callback) {
+			async.each(data.members, function (member, callback) {
 
-					/* never forward message the user who created it */
-					if (req.body.From === member.identity) {
-						return callback()
-					}
+				/* never forward message the user who created it */
+				if (req.body.From === member.identity) {
+					return callback()
+				}
 
-					console.log(req.direction + 'forward message "' + req.body.Body + '" to identity ' + member.identity)
+				console.log(req.direction + 'forward message "' + req.body.Body + '" to identity ' + member.identity)
 
-					forwardMessage(member.identity, req.body.Body, req).then(function (message) {
-						callback()
-					}).catch(function (err) {
-						callback(err)
-					})
-
-				}, function (err) {
-					if (err) {
-						return reject(err)
-					}
-
-					resolve()
+				module.exports.forwardMessage(member.identity, req.body.Body, req).then(function (message) {
+					callback()
+				}).catch(function (err) {
+					callback(err)
 				})
 
+			}, function (err) {
+				if (err) {
+					return reject(err)
+				}
+
+				resolve()
 			})
 
 		})
+
+	})
 }
 
-var forwardMessage = function (to, body, req) {
+module.exports.forwardMessage = function (to, body, req) {
 
 	return new Promise(function (resolve, reject) {
-		let from
+		var from
 
-		if (to.includes('messenger')) {
-			from = 'messenger:' + req.configuration.twilio.facebookPageId
+		if (to.includes('Messenger')) {
+			from = 'Messenger:' + req.configuration.twilio.facebookPageId
 		} else {
 			from = req.configuration.twilio.callerId
 		}
 
 		client.messages.create({
-	    to: to,
+			to: to,
 			from: from,
 			body: body
-	  })
-	  .then(message => {
-			console.log(req.direction + 'message ' + message.sid + ' create, body is "' + body + '" sent to endpoint ' + to + ', sender is ' + from)
-	  	resolve(message)
-	  }).catch(error => {
-	  	console.error(req.direction + ' sending message failed: %s', JSON.stringify(err, Object.getOwnPropertyNames(err)))
-	  	reject(error)
-	  })
+		}, function (err, message) {
+			if (err) {
+				console.error(req.direction + ' sending message failed: %s', JSON.stringify(err, Object.getOwnPropertyNames(err)))
+				reject(err)
+			} else {
+				console.log(req.direction + 'message ' + message.sid + ' create, body is "' + body + '" sent to endpoint ' + to + ', sender is ' + from)
+				resolve(message)
+			}
+		})
 
 	})
 
@@ -232,29 +265,30 @@ var forwardMessage = function (to, body, req) {
 module.exports.outbound = function (req, res) {
 	req.direction = 'outbound: '
 
-	console.log(req.direction + 'request received: %j', req.body.Body + ' - ' + new Date())
+	console.log(req.direction + 'request received: %j', req.body)
 
-	client.chat.services(process.env.TWILIO_CHAT_SERVICE_SID).channels(req.body.ChannelSid).fetch()
-		.then(function (channel) {
-			console.log(req.direction + 'channel ' + channel.sid + ' received')
+	service.channels(req.body.ChannelSid).get().then(function (channel) {
+		console.log(req.direction + 'channel ' + channel.sid + ' received')
 
-			let attributes = JSON.parse(channel.attributes)
+		var attributes = JSON.parse(channel.attributes)
 
-			if (!attributes.forwarding) {
-				console.log(req.direction + 'channel ' + channel.sid + ' needs no forwarding')
+		if (!attributes.forwarding) {
+			console.log(req.direction + 'channel ' + channel.sid + ' needs no forwarding')
+			res.status(200).end()
+		} else {
+
+			return module.exports.forwardChannel(channel, req).then(function () {
+			}).then(function () {
+				console.log(req.direction + 'message forwarding for channel ' + channel.sid + ' done')
+				res.setHeader('Content-Type', 'application/xml')
 				res.status(200).end()
-			} else {
+			})
 
-				forwardChannel(channel, req)
-					.then(function () {
-						console.log(req.direction + 'message forwarding for channel ' + channel.sid + ' done')
-						res.status(200).send('blah')
-					})
+		}
 
-			}
-
-		}).catch(function (err) {
-			console.log(req.direction + 'forwarding chat message failed: %s', res.convertErrorToJSON(err))
-			res.status(500).send(res.convertErrorToJSON(err))
-		})
+	}).catch(function (err) {
+		console.log(req.direction + 'forwarding chat message failed: %s', JSON.stringify(err, Object.getOwnPropertyNames(err)))
+		res.setHeader('Content-Type', 'application/xml')
+		res.status(500).send(JSON.stringify(err, Object.getOwnPropertyNames(err)))
+	})
 }

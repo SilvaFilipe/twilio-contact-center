@@ -1,8 +1,15 @@
-const Twilio 	= require('twilio')
+const twilio 	= require('twilio')
 
-const client = new Twilio(
+/* client for Twilio Programmable Voice / SMS */
+const client = new twilio(
 	process.env.TWILIO_ACCOUNT_SID,
 	process.env.TWILIO_AUTH_TOKEN)
+
+/* client for Twilio TaskRouter */
+const taskrouterClient = new twilio.TaskRouterClient(
+	process.env.TWILIO_ACCOUNT_SID,
+	process.env.TWILIO_AUTH_TOKEN,
+	process.env.TWILIO_WORKSPACE_SID)
 
 module.exports.validateSetup = function (req, res) {
 	if (!process.env.TWILIO_ACCOUNT_SID || process.env.TWILIO_ACCOUNT_SID.length !== 34) {
@@ -21,36 +28,35 @@ module.exports.validateSetup = function (req, res) {
 	}
 
 	validateAccount()
-		.then(result => {
+		.then(function (result) {
 			return validateWorkspace()
 		})
 		.then(function (result) {
 			return validateApplication(req.configuration.twilio.applicationSid)
 		})
-		.then(function (result) {
-			return validatePhoneNumber(req, req.configuration.twilio.callerId)
-		})
 		.then(function () {
 			return res.status(200).end()
-		}).catch(error => {
-			return res.status(500).json({ code: error})
+		}).catch(function (err) {
+			console.log(err)
+			return res.status(500).json({ code: err})
 		})
 
 }
 
 var validateApplication = function (applicationSid) {
 
-	return new Promise((resolve, reject) => {
+	return new Promise(function (resolve, reject) {
 
 		if (!applicationSid) {
 			return reject('TWILIO_APPLICATION_SID_INVALID')
 		}
 
-		client.applications(applicationSid).fetch().then(application => {
-			resolve(true)
-		}).catch(error => {
-			console.error(error)
-			reject('TWILIO_APPLICATION_NOT_ACCESSIBLE')
+		client.applications(applicationSid).get(function (err, application) {
+			if (err) {
+				reject('TWILIO_APPLICATION_NOT_ACCESSIBLE')
+			} else {
+				resolve(true)
+			}
 		})
 
 	})
@@ -59,15 +65,15 @@ var validateApplication = function (applicationSid) {
 
 var validateAccount = function () {
 
-	return new Promise((resolve, reject) => {
+	return new Promise(function (resolve, reject) {
 
-		client.api.accounts(process.env.TWILIO_ACCOUNT_SID).fetch()
-			.then(account => {
-				resolve(true)
-			}).catch(error => {
-				console.error(error)
+		client.accounts(process.env.TWILIO_ACCOUNT_SID).get(function (err, account) {
+			if (err) {
 				reject('TWILIO_ACCOUNT_NOT_ACCESSIBLE')
-			})
+			} else {
+				resolve(true)
+			}
+		})
 
 	})
 
@@ -75,51 +81,51 @@ var validateAccount = function () {
 
 var validateWorkspace = function () {
 
-	return new Promise((resolve, reject) => {
-		client.taskrouter.v1.workspaces(process.env.TWILIO_WORKSPACE_SID).fetch()
-			.then(account => {
-				resolve(true)
-			}).catch(error => {
-				console.error(error)
+	return new Promise(function (resolve, reject) {
+
+		taskrouterClient.workspace.get(function (err, workspace) {
+			if (err) {
 				reject('TWILIO_WORKSPACE_NOT_ACCESSIBLE')
-			})
+			} else {
+				resolve()
+			}
+		})
 
 	})
 
 }
 
-var validatePhoneNumber = function (req, phoneNumber) {
+module.exports.validatePhoneNumber = function (req, res) {
+	var filter = {
+		PhoneNumber: req.body.callerId
+	}
 
-	return new Promise((resolve, reject) => {
-		if (!phoneNumber) {
-			reject('TWILIO_PHONE_NUMBER_UNKNOWN')
-			return
-		}
-
-		const filter = {
-			phoneNumber: phoneNumber
-		}
-
-		client.incomingPhoneNumbers.list(filter)
-			.then(phoneNumbers => {
-				if (phoneNumbers.length === 0) {
-					reject('TWILIO_PHONE_NUMBER_UNKNOWN')
-					return
-				}
-
-				/* validate if the voiceUrl is configured and points to this server */
-				const voiceUrl = req.protocol + '://' + req.hostname + '/api/ivr/welcome'
-
-				if (phoneNumbers[0].voiceUrl !== voiceUrl) {
-					reject('TWILIO_PHONE_NUMBER_VOICE_URL_INVALID')
-					return
-				}
-
-				resolve(true)
-			}).catch(error => {
-				console.error(error)
-				reject('TWILIO_UNKNOWN_ERROR')
+	client.incomingPhoneNumbers.list(filter, function (err, data) {
+		if (err) {
+			return res.status(500).json({
+				code: 'TWILIO_UNKNOWN_ERROR', message: req.util.convertToString(err)
 			})
+		}
+
+		/* phone number not found */
+		if (data.incomingPhoneNumbers.length === 0) {
+			return res.status(404).json({ code: 'TWILIO_UNKNOWN_PHONE_NUMBER'})
+		}
+
+		/* the query returned more than one number, something went wrong */
+		if (data.incomingPhoneNumbers.length !== 1) {
+			return res.status(500).json({ code: 'TWILIO_MULTIPLE_PHONE_NUMBERS'})
+		}
+
+		/* the number does not support voice */
+		if (data.incomingPhoneNumbers[0].capabilities.voice === false) {
+			return res.status(500).json({ code: 'TWILIO_PHONE_NUMBER_NOT_VOICE_CAPABLE'})
+		}
+
+		var sid = data.incomingPhoneNumbers[0].sid
+		var capabilities = data.incomingPhoneNumbers[0].capabilities
+
+		res.status(200).json({sid: sid, capabilities: capabilities})
 
 	})
 

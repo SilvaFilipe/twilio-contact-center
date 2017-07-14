@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Twilio Contact Center: Administration</title>
+  <title>Twilio - CTI Central: Administration</title>
 
   <link rel="stylesheet" href="/styles/bootstrap.css" type="text/css" />
   <link rel="stylesheet" href="/styles/default.css" type="text/css" />
@@ -19,7 +19,7 @@
 
     <section class="row" ng-init="init()" ng-cloak>
 
-      <h2 class="page-header">Twilio Contact Center: Administration</h2>
+      <h2 class="page-header">Twilio - CTI Central: Administration</h2>
 
       <ul class="nav nav-tabs">
         <li role="presentation"  ng-click="showTab('agents')" ng-class="{active: UI.tab == 'agents'}"><a href="#">Call Agents</a></li>
@@ -50,9 +50,10 @@
         </tbody>
       </table>
 
-      <button style="margin-left:8px" class="btn btn-primary" ng-show="!UI.showForm" ng-click="showAgentForm()">Create Agent</button>
+      <button style="margin-left:8px" class="btn btn-primary" ng-show="agent == null" ng-click="showAgentForm()">Create Agent</button>
+      <div><a href="/" style="margin:8px 0px 0px 8px"  class="btn btn-primary">Back</a></div>
 
-      <div ng-show="UI.showForm" class="panel panel-default" style="margin-bottom:0px; margin-left:10px; margin-right:10px">
+      <div ng-show="agent != null" class="panel panel-default" style="margin-bottom:0px; margin-left:10px; margin-right:10px">
 
         <div class="panel-heading">Create Agent</div>
 
@@ -125,7 +126,9 @@
 
         </div>
 
-        <button ng-disabled="ivrForm.$invalid || ivrForm.$pristine || UI.isSaving" class="btn btn-primary" ng-click="saveIvr()"><span style="margin-right: 10px;" ng-show="UI.isSaving == true"><i class="fa fa-refresh fa-spin"></i></span>Save IVR</button>
+        <button ng-disabled="ivrForm.$invalid || ivrForm.$pristine || UI.isSaving" class="btn btn-primary" ng-click="saveIvr()">
+          <span style="margin-right: 10px;" ng-show="UI.isSaving == true"><i class="fa fa-refresh fa-spin"></i></span>Save IVR</button>
+          <div><a href="/" style="margin:8px 0px 0px 0px"  class="btn btn-primary">Back</a></div>
 </form>
       </div>
 
@@ -139,13 +142,13 @@
 
 <script src="/scripts/angular.min.js"></script>
 <script src="/scripts/checklist-model.js"></script>
-<script src="/scripts/directives/ClientNameDirective.js"></script>
-<script src="/scripts/directives/ConvertToNumberDirective.js"></script>
-
 <script src="AdministrationController.js"></script>
 
+<script src="/scripts/directives/ClientNameDirective.js"></script>
+<script src="/scripts/directives/ConvertToNumberDirective.js"></script>
 <script src="/scripts/directives/TeamNameFilter.js"></script>
 <script src="/scripts/directives/ChannelListFilter.js"></script>
+
 
 </body>
 </html>

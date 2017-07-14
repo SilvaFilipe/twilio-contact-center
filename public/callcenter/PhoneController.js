@@ -63,7 +63,7 @@ app.controller('PhoneController', function ($scope, $rootScope, $http, $timeout,
 			conn.accept();
 
 			conn.disconnect(function (conn) {
-				$scope.status = 'call has ended';
+				$scope.status = 'chamada terminada';
 				$scope.isActive = false;
 				$scope.$apply();
 			});

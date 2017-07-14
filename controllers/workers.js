@@ -1,63 +1,45 @@
-const Twilio 	= require('twilio')
+const twilio = require('twilio')
 
-const client = new Twilio(
+/* client for Twilio TaskRouter */
+const taskrouterClient = new twilio.TaskRouterClient(
 	process.env.TWILIO_ACCOUNT_SID,
-	process.env.TWILIO_AUTH_TOKEN)
+	process.env.TWILIO_AUTH_TOKEN,
+	process.env.TWILIO_WORKSPACE_SID)
 
 module.exports.delete = function (req, res) {
-	let id = req.params.id
 
-	client.taskrouter.v1.workspaces(process.env.TWILIO_WORKSPACE_SID).workers(id).remove()
-		.then(worker => {
+	taskrouterClient.workspace.workers(req.params.id).delete(null)
+		.then(function (result) {
 			res.status(200).end()
-		}).catch(error => {
-			res.status(500).send(res.convertErrorToJSON(error))
+		}).catch(function (err) {
+			res.status(500).json(err)
 		})
 
 }
 
 module.exports.create = function (req, res) {
-	const worker = {
+
+	var worker = {
 		friendlyName: req.body.friendlyName,
 		attributes: req.body.attributes
 	}
 
-	client.taskrouter.v1.workspaces(process.env.TWILIO_WORKSPACE_SID).workers.create(worker)
-		.then(worker => {
-			const payload = {
-				sid: worker.sid,
-				friendlyName: worker.friendlyName,
-				attributes: worker.attributes,
-				activityName: worker.activityName
-			}
-
-			res.status(200).json(payload)
-		}).catch(error => {
-			res.status(500).send(res.convertErrorToJSON(error))
+	taskrouterClient.workspace.workers.create(worker)
+		.then(function (worker) {
+			res.status(200).json(worker)
+		}).catch(function (err) {
+			res.status(500).json(err)
 		})
 
 }
 
 module.exports.list = function (req, res) {
 
-	client.taskrouter.v1.workspaces(process.env.TWILIO_WORKSPACE_SID).workers.list()
-		.then(workers => {
-			let payload =[]
-
-			for (let i = 0; i < workers.length; i++) {
-				const worker = {
-					sid: workers[i].sid,
-					friendlyName: workers[i].friendlyName,
-					attributes: JSON.parse(workers[i].attributes),
-					activityName: workers[i].activityName
-				}
-
-				payload.push(worker)
-			}
-
-			res.status(200).json(payload)
-		}).catch(error => {
-			res.status(500).send(res.convertErrorToJSON(error))
+	taskrouterClient.workspace.workers.list()
+		.then(function (data) {
+			res.status(200).json(data.workers)
+		}).catch(function (err) {
+			res.status(500).json(err)
 		})
 
 }

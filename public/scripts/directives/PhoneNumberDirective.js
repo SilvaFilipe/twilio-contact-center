@@ -1,6 +1,5 @@
-angular.module('phone-number', [])
-  .directive('phoneNumber', ['$parse', '$compile', function($parse, $compile) {
-    const pattern = /^\+[0-9]{8,20}$/;
+app.directive('phoneNumber', function () {
+    var pattern = /^\+[0-9]{8,20}$/;
 
     return {
       require: 'ngModel',
@@ -23,5 +22,4 @@ angular.module('phone-number', [])
         };
       }
     };
-    
-  }])
+  });
