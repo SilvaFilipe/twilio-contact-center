@@ -12,7 +12,7 @@ module.exports.welcome = function (req, res) {
 	let keywords = []
 
 	/* add the team names as hints to the automatic speech recognition  */
-	for (let i = 0; i < req.configuration.ivr.options.length; i++) {
+	for (let i = 0; i < req.configuration.ivr.options.length; i++) {  //quantidade de equipas
 		keywords.push(req.configuration.ivr.options[i].friendlyName)
 	}
 
@@ -27,7 +27,7 @@ module.exports.welcome = function (req, res) {
 	}, function (node) {
 		//node.say(req.configuration.ivr.text)
 
-		if(req.configuration.ivr.options.length == 2){
+		if(req.configuration.ivr.options[1].friendlyName == 'Sales'){
 			twiml.play("http://demo.twilio.com/hellomonkey/monkey.mp3")
 			
 		}else{
