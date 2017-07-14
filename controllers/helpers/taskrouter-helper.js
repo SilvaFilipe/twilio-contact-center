@@ -86,3 +86,4 @@ module.exports.createWorkerCapabilityToken = function (sid) {
 
 	return workerCapability
 }
+

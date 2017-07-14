@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<title>Twilio - CTI Central: Live Chat</title>
+	<title>Twilio Contact Center: Live Chat</title>
 
 	<link rel="stylesheet" href="/styles/bootstrap.min.css" type="text/css" />
 	<link rel="stylesheet" href="/styles/default.css" type="text/css" />
@@ -20,7 +20,7 @@
 		<div class="row">
 
 			<div class="page-header hidden-sm hidden-xs">
-				<h2>Twilio - CTI Central: Live Chat</h2>
+				<h2>Twilio Contact Center: Live Chat</h2>
 			</div>
 
 			<div class="col-xs-12">
@@ -90,7 +90,7 @@
 						<form class="chat-message-form form-horizontal" name="chatMessageForm" ng-hide="session.expired" style="margin-top:5px">
 							<div class="form-group">
 								<div class="col-xs-8">
-									<input ng-model="message" ng-model-options="{ debounce: 250 }" ng-required="true" autocomplete="off" ng-focus="focused()" name="text" type="text" class="form-control" placeholder="Say something...">
+									<input ng-model="message" ng-model-options="{ debounce: 250 }" ng-required="true" autocomplete="off" ng-focus="focused()" name="text" type="text" class="form-control" placeholder="say something">
 								</div>
 								<div class="col-xs-4">
 									<button ng-disabled="chatMessageForm.$invalid || chatMessageForm.$pristine" class="btn btn-primary" ng-click="send()">Send</button>
@@ -105,11 +105,11 @@
 			</div>
 
 			<div class="col-md-4 hidden-sm hidden-xs">
-				<h3 style="margin:0px">Call us:</h3>
-				<h4 class="caller-id" style="margin:0px">{{configuration.twilio.callerId}}</h4>
+				<h4 style="margin:0px">Call us:</h4>
+				<h3 class="caller-id" style="margin:0px">{{configuration.twilio.callerId}}</h3>
 
-				<h3>Request a callback?</h3>
-				<h4><a href="index.html">Click here</a></h4>
+				<h4>Request a callback?</h4>
+				<a href="index.html">click here</a>
 
 			</div>
 

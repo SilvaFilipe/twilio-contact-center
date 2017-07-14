@@ -34,30 +34,30 @@ app.use(bodyParser.urlencoded({
 
 app.use(function (req, res, next) {
 
-var replaceErrors = function (key, value) {
- 		if (value instanceof Error) {
- 			var error = {}
- 
- 			Object.getOwnPropertyNames(value).forEach(function (key) {
- 				error[key] = value[key]
- 			})
- 
- 			return error
- 		}
- 
- 		return value
- 	}
- 
- 	res.convertErrorToJSON = (error) => {
- 		console.log(error)
- 
- 		return JSON.stringify(error, replaceErrors)
- 	}
- 
- 	next()
- })
- 
- app.use(function (req, res, next) {
+	var replaceErrors = function (key, value) {
+		if (value instanceof Error) {
+			var error = {}
+
+			Object.getOwnPropertyNames(value).forEach(function (key) {
+				error[key] = value[key]
+			})
+
+			return error
+		}
+
+		return value
+	}
+
+	res.convertErrorToJSON = (error) => {
+		console.log(error)
+
+		return JSON.stringify(error, replaceErrors)
+	}
+
+	next()
+})
+
+app.use(function (req, res, next) {
 
 	util.getConfiguration(function (err, configuration) {
 		if (err) {
@@ -72,23 +72,23 @@ var replaceErrors = function (key, value) {
 })
 
 app.use('/', function (req, res, next) {
- 	if (req.path.substr(0,4) === '/api') {
- 		res.set({
- 			'Content-Type': 'application/json',
- 			'Cache-Control': 'public, max-age=0',
- 		})
- 	}
- 
- 	/* override content type for twiml routes */
- 	if (req.path.includes('/api/ivr') || req.path.includes('/agents/call')) {
- 		res.set({
- 			'Content-Type': 'application/xml',
- 			'Cache-Control': 'public, max-age=0',
- 		})
- 	}
- 
- 	next()
- })
+	if (req.path.substr(0,4) === '/api') {
+		res.set({
+			'Content-Type': 'application/json',
+			'Cache-Control': 'public, max-age=0',
+		})
+	}
+
+	/* override content type for twiml routes */
+	if (req.path.includes('/api/ivr') || req.path.includes('/agents/call')) {
+		res.set({
+			'Content-Type': 'application/xml',
+			'Cache-Control': 'public, max-age=0',
+		})
+	}
+
+	next()
+})
 
 var router = express.Router()
 
@@ -98,9 +98,9 @@ router.route('/setup').get(setup.get)
 router.route('/setup').post(setup.update)
 
 var setupPhoneNumber = require('./controllers/setup-phone-number.js')
- 
- router.route('/setup/phone-number/validate').post(setupPhoneNumber.validate)
- router.route('/setup/phone-number').post(setupPhoneNumber.update)
+
+router.route('/setup/phone-number/validate').post(setupPhoneNumber.validate)
+router.route('/setup/phone-number').post(setupPhoneNumber.update)
 
 var validate = require('./controllers/validate.js')
 

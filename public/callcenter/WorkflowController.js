@@ -20,7 +20,7 @@ app.controller('WorkflowController', function ($scope, $rootScope, $http, $inter
 
 	if ($window.location.protocol !== 'https:') {
 		let message =  `Depending on your browser and/or settings capturing audio and video 
-										requires a secure (HTTPS) page. The system may not work.`;
+										requires a secure (HTTPS) page. The demo may not work.`;
 		$scope.UI.warning.browser = message;
 	}
 

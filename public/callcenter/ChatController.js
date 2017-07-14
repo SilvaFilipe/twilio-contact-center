@@ -211,3 +211,4 @@ app.filter('time', function () {
 		return moment(value).format('HH:mm');
 	};
 });
+

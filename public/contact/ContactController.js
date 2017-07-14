@@ -45,7 +45,7 @@ app.controller('ContactController', function ($scope, $http, $timeout, $log) {
 			}, function onError (response) {
 
 				$scope.supportForm.$setValidity('serverError', false);
- 				$log.error(response);
+				$log.error(response);
 
 			});
 

@@ -1,4 +1,4 @@
-const Twilio = require('twilio')
+const Twilio 	= require('twilio')
 
 const taskrouterHelper = require('./helpers/taskrouter-helper.js')
 
@@ -18,8 +18,7 @@ module.exports.welcome = function (req, res) {
 		method: 'GET',
 		numDigits: 1,
 		timeout: 4,
-		voice:'alice',
-		language: 'en-Us',
+		language: 'en-US',
 		hints: keywords.join()
 	})
 
@@ -98,8 +97,8 @@ module.exports.selectTeam = function (req, res) {
 		}
 
 		twiml.enqueueTask({
- 			workflowSid: req.configuration.twilio.workflowSid,
- 		}).task({priority: 1, timeout: 3600}, JSON.stringify(attributes));
+			workflowSid: req.configuration.twilio.workflowSid,
+		}).task({priority: 1, timeout: 3600}, JSON.stringify(attributes));
 
 	}
 
@@ -118,17 +117,16 @@ module.exports.createTask = function (req, res) {
 		team: req.query.teamId
 	}
 
-		const twiml =  new Twilio.twiml.VoiceResponse()
+	const twiml =  new Twilio.twiml.VoiceResponse()
 
-			taskrouterHelper.createTask(req.configuration.twilio.workflowSid, attributes)
- 			.then(task => {
- 			twiml.say('Thanks for your callback request, an agent will call you back soon.')
+	taskrouterHelper.createTask(req.configuration.twilio.workflowSid, attributes)
+		.then(task => {
+			twiml.say('Thanks for your callback request, an agent will call you back soon.')
 			twiml.hangup()
-			
-			}).catch(error => {
- 			twiml.say('An application error occured, the demo ends now')
- 		}).then(() => {
- 			res.send(twiml.toString())
- 		})
+		}).catch(error => {
+			twiml.say('An application error occured, the demo ends now')
+		}).then(() => {
+			res.send(twiml.toString())
+		})
 
 }

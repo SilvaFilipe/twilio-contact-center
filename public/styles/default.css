@@ -594,7 +594,7 @@
 
 .ui-warning
 {
-  background-color:  #ff2c33  !important;
+  background-color: #ff2c33 !important;
   color: white !important;
   line-height: 26px;
   vertical-align: middle;
@@ -606,5 +606,5 @@
   box-sizing: border-box;
   margin-bottom: 5px !important;
   border-radius: 0 !important;
-  +  padding: 5px;
+  padding: 5px;
 } 

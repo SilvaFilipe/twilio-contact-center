@@ -72,7 +72,7 @@ module.exports.update = function (req, res) {
 
 			const workflow = {
 				sid: config.twilio.workflowSid,
-				friendlyName: 'Twilio - CTI Central Workflow',
+				friendlyName: 'Twilio Contact Center Workflow',
 				taskReservationTimeout: 1200,
 				configuration: JSON.stringify(workflowConfiguration)
 			}
@@ -148,7 +148,7 @@ module.exports.createOrUpdateQueue = function (queue, callback) {
 
 	} else  {
 
-		client.taskrouter.v1.workspaces(process.env.TWILIO_WORKSPACE_SID).create(queue, function (err, queueFromApi) {
+		client.taskrouter.v1.workspaces(process.env.TWILIO_WORKSPACE_SID).taskQueues.create(queue, function (err, queueFromApi) {
 			if (err) {
 				callback(err)
 			} else {
@@ -172,7 +172,7 @@ module.exports.createOrUpdateWorkflow = function (workflow, callback) {
 
 	} else  {
 
-		client.taskrouter.v1.workspaces(process.env.TWILIO_WORKSPACE_SID).create(workflow, function (err, workflowFromApi) {
+		client.taskrouter.v1.workspaces(process.env.TWILIO_WORKSPACE_SID).workflows.create(workflow, function (err, workflowFromApi) {
 			if (err) {
 				callback(err)
 			} else {
@@ -190,7 +190,7 @@ module.exports.createOrUpdateApplication = function (configuration, req, callbac
 	if (configuration.twilio.applicationSid) {
 
 		client.applications(configuration.twilio.applicationSid).update({
-			friendlyName: 'Twilio - CTI Central Demo',
+			friendlyName: 'Twilio Contact Center Demo',
 			voiceUrl: url,
 			voiceMethod: 'GET'
 		}, function (err, application) {
@@ -204,7 +204,7 @@ module.exports.createOrUpdateApplication = function (configuration, req, callbac
 	} else  {
 
 		client.applications.create({
-			friendlyName: 'Twilio - CTI Central Demo',
+			friendlyName: 'Twilio Contact Center Demo',
 			voiceUrl: url,
 			voiceMethod: 'GET'
 		}, function (err, application) {
