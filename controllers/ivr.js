@@ -77,7 +77,7 @@ module.exports.selectTeam = function (req, res) {
 	/* the caller pressed a key that does not match any team */
 	if (team === null) {
 		// redirect the call to the previous twiml
-		twiml.play("http://demo.twilio.com/hellomonkey/monkey.mp3")
+		twiml.play("http://demo.twilio.com/hellomonkey/monkey.mp3", loop=3)
 		twiml.play("http://cd.textfiles.com/10000soundssongs/WAV/COWBELL1.WAV", loop=10)
 		twiml.play("http://k003.kiwi6.com/hotlink/7mykaphl4k/selecaoinvalida.wav")
 		//twiml.play("http://local.aaca.org/junior/ahoooga/mp3/vwhorn.mp3", loop=10)
