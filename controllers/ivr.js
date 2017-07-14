@@ -77,8 +77,8 @@ module.exports.selectTeam = function (req, res) {
 	/* the caller pressed a key that does not match any team */
 	if (team === null) {
 		// redirect the call to the previous twiml
-		twiml.play("https://www.dropbox.com/s/dps8ll5z229q6ca/selecao_invalida.mp3")
-		twiml.play('Your selection was not valid, please try again')
+		twiml.play("http://k003.kiwi6.com/hotlink/5nvpar7kk7/selecao_invalida.mp3")
+		//twiml.say('Your selection was not valid, please try again')
 		twiml.pause({length: 2})
 		twiml.redirect({ method: 'GET' }, 'welcome')
 	} else {
