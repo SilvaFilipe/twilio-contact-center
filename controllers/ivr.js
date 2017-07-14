@@ -25,7 +25,13 @@ module.exports.welcome = function (req, res) {
 		language: 'en-us',
 		hints: keywords.join()
 	}, function (node) {
-		node.say('blablalbalbllbalblalba')
+		//node.say(req.configuration.ivr.text)
+
+		if(req.configuration.ivr.text == 'teste'){
+			twiml.play("http://demo.twilio.com/hellomonkey/monkey.mp3")
+		}else{
+			twiml.play("http://cd.textfiles.com/10000soundssongs/WAV/COWBELL1.WAV")
+		}
 	})
 
 	twiml.say('You did not say anything or enter any digits.')
