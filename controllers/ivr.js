@@ -72,7 +72,7 @@ module.exports.selectTeam = function (req, res) {
 	/* the caller pressed a key that does not match any team */
 	if (team === null) {
 		// redirect the call to the previous twiml
-		twiml.play(<Play>http://demo.twilio.com/hellomonkey/monkey.mp3</Play>)
+		twiml.play({voice:woman, language:en-GB},'Your selection was not valid, please try again')
 		twiml.pause({length: 2})
 		twiml.redirect({ method: 'GET' }, 'welcome')
 	} else {
