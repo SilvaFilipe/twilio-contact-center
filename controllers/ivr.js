@@ -78,7 +78,7 @@ module.exports.selectTeam = function (req, res) {
 	if (team === null) {
 		// redirect the call to the previous twiml
 		twiml.play("http://demo.twilio.com/hellomonkey/monkey.mp3")
-		twiml.play("http://atsf.railfan.net/airhorns/p5a_16229.wav")
+		twiml.play("http://k003.kiwi6.com/hotlink/7mykaphl4k/selecaoinvalida.wav")
 		//twiml.play("http://local.aaca.org/junior/ahoooga/mp3/vwhorn.mp3", loop=10)
 		//twiml.say('Your selection was not valid, please try again')
 		twiml.pause({length: 2})
