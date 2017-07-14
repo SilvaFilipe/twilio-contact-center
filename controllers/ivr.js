@@ -26,9 +26,8 @@ module.exports.welcome = function (req, res) {
 		hints: keywords.join()
 	}, function (node) {
 		//node.say(req.configuration.ivr.text)
-		node.say(req.configuration.ivr.options.length)
 
-		if(req.configuration.ivr.text == 'teste'){
+		if(req.configuration.ivr.options.length == 2){
 			twiml.play("http://demo.twilio.com/hellomonkey/monkey.mp3")
 			
 		}else{
