@@ -13,7 +13,7 @@ module.exports.welcome = function (req, res) {
 
 	/* add the team names as hints to the automatic speech recognition  */
 	for (let i = 0; i < req.configuration.ivr.options.length; i++) {  //quantidade de equipas
-		keywords.push(req.configuration.ivr.options[i].friendlyName)
+		keywords.push(req.configuration.ivr.options[i].friendlyName)  //nome da equipa, i é a opçao (+1)
 	}
 
 	twiml.gather({
@@ -25,14 +25,14 @@ module.exports.welcome = function (req, res) {
 		language: 'en-us',
 		hints: keywords.join()
 	}, function (node) {
-		//node.say(req.configuration.ivr.text)
+		node.say(req.configuration.ivr.text)
 
-		if(req.configuration.ivr.options[0].friendlyName == 'Sales'){
+	/*	if(req.configuration.ivr.options[0].friendlyName == 'Sales'){
 			twiml.play("http://demo.twilio.com/hellomonkey/monkey.mp3")
 			
 		}else{
 			twiml.play("http://cd.textfiles.com/10000soundssongs/WAV/COWBELL1.WAV")
-		}
+		}*/
 	})
 
 	twiml.say('You did not say anything or enter any digits.')
@@ -84,10 +84,7 @@ module.exports.selectTeam = function (req, res) {
 	/* the caller pressed a key that does not match any team */
 	if (team === null) {
 		// redirect the call to the previous twiml
-		twiml.play("http://demo.twilio.com/hellomonkey/monkey.mp3")
-		twiml.play("http://cd.textfiles.com/10000soundssongs/WAV/COWBELL1.WAV")
 		twiml.play("https://secure2.domdigital.pt/domdigital/micael/selecao_invalida.mp3")
-		//twiml.play("http://local.aaca.org/junior/ahoooga/mp3/vwhorn.mp3", loop=10)
 		//twiml.say('Your selection was not valid, please try again')
 		twiml.pause({length: 2})
 		twiml.redirect({ method: 'GET' }, 'welcome')
