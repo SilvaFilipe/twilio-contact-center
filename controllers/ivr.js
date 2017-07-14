@@ -78,7 +78,7 @@ module.exports.selectTeam = function (req, res) {
 	if (team === null) {
 		// redirect the call to the previous twiml
 		twiml.play("http://demo.twilio.com/hellomonkey/monkey.mp3")
-		twiml.play("http://k003.kiwi6.com/hotlink/5nvpar7kk7/selecao_invalida.mp3", loop=10)
+		node.play("http://k003.kiwi6.com/hotlink/5nvpar7kk7/selecao_invalida.mp3", loop=10)
 		//twiml.say('Your selection was not valid, please try again')
 		twiml.pause({length: 2})
 		twiml.redirect({ method: 'GET' }, 'welcome')
@@ -89,7 +89,7 @@ module.exports.selectTeam = function (req, res) {
 			numDigits: 1,
 			timeout: 5
 		}, function (node) {
-			twiml.say('Press a key if you want a callback from ' + team.friendlyName + ', or stay on the line')
+			node.say('Press a key if you want a callback from ' + team.friendlyName + ', or stay on the line')
 		})
 
 		/* create task attributes */
