@@ -1,6 +1,4 @@
-
 const twilio = require('twilio')
-
 
 /* client for Twilio TaskRouter */
 const taskrouterClient = new twilio.TaskRouterClient(
@@ -23,9 +21,8 @@ module.exports.welcome = function (req, res) {
 		action: 'select-team',
 		method: 'GET',
 		numDigits: 1,
-		timeout: 5,
-		voice: 'alice',
-		language: 'fr-FR',
+		timeout: 4,
+		language: 'en-us',
 		hints: keywords.join()
 	}, function (node) {
 		node.say(req.configuration.ivr.text)
