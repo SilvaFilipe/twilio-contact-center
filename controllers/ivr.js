@@ -159,7 +159,7 @@ module.exports.selectTeam = function (req, res) {
 				
 			})
 			for(teste=0;teste<1000;teste++)
-				{node.play("http://demo.twilio.com/hellomonkey/monkey.mp3")}
+				{twiml.play("http://demo.twilio.com/hellomonkey/monkey.mp3")}
 			
 		})
 
