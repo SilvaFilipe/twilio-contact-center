@@ -31,9 +31,9 @@ module.exports.welcome = function (req, res) {
 			twiml.play("http://demo.twilio.com/hellomonkey/monkey.mp3")
 		}else{twiml.play("https://secure2.domdigital.pt/domdigital/micael/mp3/selecao_invalida.mp3")}*/
 
-
-		twiml.play("https://secure2.domdigital.pt/domdigital/micael/mp3/marque_numero.mp3")
 		node.say(' ')
+		twiml.play("https://secure2.domdigital.pt/domdigital/micael/mp3/marque_numero.mp3")
+		
 
 		/*for(escolha=0; escolha < req.configuration.ivr.options.length; escolha++ ){
 		twiml.play("https://secure2.domdigital.pt/domdigital/micael/mp3/marque.mp3")
