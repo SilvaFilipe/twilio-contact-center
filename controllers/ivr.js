@@ -26,13 +26,20 @@ module.exports.welcome = function (req, res) {
 		hints: keywords.join()
 	}, function (node) {
 		node.say(req.configuration.ivr.text)
+		if(req.configuration.ivr.options[i].friendlyName=='Sales'){
+			twiml.play("https://secure2.domdigital.pt/domdigital/micael/selecao_invalida.mp3")
+		}
 
-	/*	if(req.configuration.ivr.options[0].friendlyName == 'Sales'){
-			twiml.play("http://demo.twilio.com/hellomonkey/monkey.mp3")
-			
-		}else{
-			twiml.play("http://cd.textfiles.com/10000soundssongs/WAV/COWBELL1.WAV")
+		/*twiml.play("https://secure2.domdigital.pt/domdigital/micael/marque_numero.mp3")
+
+		for(escolha=1; escolha <= req.configuration.ivr.options.length; escolha++ ){
+		twiml.play("https://secure2.domdigital.pt/domdigital/micael/marque_numero.mp3")
+				if(req.configuration.ivr.options[i].friendlyName=='Sales'){
+					twiml.play("https://secure2.domdigital.pt/domdigital/micael/vendas.mp3")
+				}
+
 		}*/
+
 	})
 
 	twiml.say('You did not say anything or enter any digits.')
