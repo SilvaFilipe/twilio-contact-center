@@ -65,7 +65,7 @@ module.exports.welcome = function (req, res) {
 
 	//twiml.say('You did not say anything or enter any digits.')
 	twiml.play("https://secure2.domdigital.pt/domdigital/micael/mp3/nao_marcou.mp3")
-	twiml.pause({length: 2})
+	twiml.pause({length: 1})
 	twiml.redirect({method: 'GET'}, 'welcome')
 
 	res.setHeader('Content-Type', 'application/xml')
