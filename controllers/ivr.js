@@ -34,7 +34,7 @@ module.exports.welcome = function (req, res) {
 
 		twiml.play("https://secure2.domdigital.pt/domdigital/micael/marque_numero.mp3")
 
-		for(escolha=0; escolha < req.configuration.ivr.options.length; escolha++ ){
+		/*for(escolha=0; escolha < req.configuration.ivr.options.length; escolha++ ){
 		twiml.play("https://secure2.domdigital.pt/domdigital/micael/marque.mp3")
 
 				if(escolha==0){
@@ -59,7 +59,7 @@ module.exports.welcome = function (req, res) {
 					twiml.play("https://secure2.domdigital.pt/domdigital/micael/marketing.mp3")
 				}
 
-		}
+		}*/
 
 	})
 
