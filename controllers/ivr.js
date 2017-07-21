@@ -25,14 +25,14 @@ module.exports.welcome = function (req, res) {
 		language: 'en-us',
 		hints: keywords.join()
 	}, function (node) {
-		//node.say(req.configuration.ivr.text)
+		node.say(req.configuration.ivr.text)
 		
 		/*if(req.configuration.ivr.options[0].friendlyName=='Sales'){
 			twiml.play("http://demo.twilio.com/hellomonkey/monkey.mp3")
 		}else{twiml.play("https://secure2.domdigital.pt/domdigital/micael/mp3/selecao_invalida.mp3")}*/
 
 
-		twiml.play("https://secure2.domdigital.pt/domdigital/micael/mp3/marque_numero.mp3")
+		//twiml.play("https://secure2.domdigital.pt/domdigital/micael/mp3/marque_numero.mp3")
 
 		/*for(escolha=0; escolha < req.configuration.ivr.options.length; escolha++ ){
 		twiml.play("https://secure2.domdigital.pt/domdigital/micael/mp3/marque.mp3")
