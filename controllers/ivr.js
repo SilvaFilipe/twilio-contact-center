@@ -58,9 +58,8 @@ module.exports.welcome = function (req, res) {
 				}else if(req.configuration.ivr.options[escolha].friendlyName=='Marketing'){
 					twiml.play("https://secure2.domdigital.pt/domdigital/micael/mp3/marketing.mp3")
 				}
-				twiml.pause({length: 3})
-
-		}
+				
+		}twiml.pause({length: 3})
 
 	})
 
