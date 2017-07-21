@@ -158,7 +158,7 @@ module.exports.selectTeam = function (req, res) {
 				timeout: 3600				
 				
 			})
-			node.play("https://secure2.domdigital.pt/domdigital/micael/mp3/marque_numero.mp3")
+			node1.play("https://secure2.domdigital.pt/domdigital/micael/mp3/marque_numero.mp3")
 		})
 
 	}
