@@ -32,7 +32,7 @@ module.exports.welcome = function (req, res) {
 		}else{twiml.play("https://secure2.domdigital.pt/domdigital/micael/mp3/selecao_invalida.mp3")}*/
 
 		node.play("https://secure2.domdigital.pt/domdigital/micael/mp3/marque_numero.mp3")
-		twiml.pause({length: 2})
+		node.pause({length: 1})
 
 		for(escolha=0; escolha < req.configuration.ivr.options.length; escolha++ ){
 		node.play("https://secure2.domdigital.pt/domdigital/micael/mp3/marque.mp3")
