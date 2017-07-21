@@ -59,7 +59,7 @@ module.exports.welcome = function (req, res) {
 					twiml.play("https://secure2.domdigital.pt/domdigital/micael/mp3/marketing.mp3")
 				}
 				
-		}twiml.pause({length: 3})
+		}twiml.pause({length: 0})
 
 	})
 
