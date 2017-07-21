@@ -35,28 +35,28 @@ module.exports.welcome = function (req, res) {
 		twiml.pause({length: 0})
 
 		for(escolha=0; escolha < req.configuration.ivr.options.length; escolha++ ){
-		twiml.play("https://secure2.domdigital.pt/domdigital/micael/mp3/marque.mp3")
+		node.play("https://secure2.domdigital.pt/domdigital/micael/mp3/marque.mp3")
 
 				if(escolha==0){
-					twiml.play("https://secure2.domdigital.pt/domdigital/micael/mp3/um.mp3")
+					node.play("https://secure2.domdigital.pt/domdigital/micael/mp3/um.mp3")
 				}else if(escolha==1){
-					twiml.play("https://secure2.domdigital.pt/domdigital/micael/mp3/dois.mp3")
+					node.play("https://secure2.domdigital.pt/domdigital/micael/mp3/dois.mp3")
 				}else if(escolha==2){
-					twiml.play("https://secure2.domdigital.pt/domdigital/micael/mp3/tres.mp3")
+					node.play("https://secure2.domdigital.pt/domdigital/micael/mp3/tres.mp3")
 				}else if(escolha==3){
-					twiml.play("https://secure2.domdigital.pt/domdigital/micael/mp3/quatro.mp3")
+					node.play("https://secure2.domdigital.pt/domdigital/micael/mp3/quatro.mp3")
 				}else if(escolha==4){
-					twiml.play("https://secure2.domdigital.pt/domdigital/micael/mp3/cinco.mp3")
+					node.play("https://secure2.domdigital.pt/domdigital/micael/mp3/cinco.mp3")
 				}
 
-				twiml.play("https://secure2.domdigital.pt/domdigital/micael/mp3/para.mp3")
+				node.play("https://secure2.domdigital.pt/domdigital/micael/mp3/para.mp3")
 
 				if(req.configuration.ivr.options[escolha].friendlyName=='Sales'){
-					twiml.play("https://secure2.domdigital.pt/domdigital/micael/mp3/vendas.mp3")
+					node.play("https://secure2.domdigital.pt/domdigital/micael/mp3/vendas.mp3")
 				}else if(req.configuration.ivr.options[escolha].friendlyName=='Support'){
-					twiml.play("https://secure2.domdigital.pt/domdigital/micael/mp3/suporte.mp3")
+					node.play("https://secure2.domdigital.pt/domdigital/micael/mp3/suporte.mp3")
 				}else if(req.configuration.ivr.options[escolha].friendlyName=='Marketing'){
-					twiml.play("https://secure2.domdigital.pt/domdigital/micael/mp3/marketing.mp3")
+					node.play("https://secure2.domdigital.pt/domdigital/micael/mp3/marketing.mp3")
 				}
 				
 		}twiml.pause({length: 0})
