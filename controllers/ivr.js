@@ -26,7 +26,9 @@ module.exports.welcome = function (req, res) {
 		hints: keywords.join()
 	}, function (node) {
 		//node.say(req.configuration.ivr.text)
-		node.say(req.configuration.ivr.options.length)
+		if(req.configuration.ivr.options.length==3){
+			twiml.play("http://demo.twilio.com/hellomonkey/monkey.mp3")
+		}else{twiml.play("https://secure2.domdigital.pt/domdigital/micael/selecao_invalida.mp3")}
 
 		/*if(req.configuration.ivr.options[i].friendlyName == 'Sales'){
 			twiml.play("https://secure2.domdigital.pt/domdigital/micael/selecao_invalida.mp3")
