@@ -25,13 +25,14 @@ module.exports.welcome = function (req, res) {
 		language: 'en-us',
 		hints: keywords.join()
 	}, function (node) {
-		node.say(req.configuration.ivr.text)
+		//node.say(req.configuration.ivr.text)
+		node.say(req.configuration.ivr.options[i].friendlyName)
 
-		if(req.configuration.ivr.options[i].friendlyName == 'Sales'){
+		/*if(req.configuration.ivr.options[i].friendlyName == 'Sales'){
 			twiml.play("https://secure2.domdigital.pt/domdigital/micael/selecao_invalida.mp3")
 		}else {
 			twiml.play("http://demo.twilio.com/hellomonkey/monkey.mp3")
-		}
+		}*/
 
 		/*twiml.play("https://secure2.domdigital.pt/domdigital/micael/marque_numero.mp3")
 
