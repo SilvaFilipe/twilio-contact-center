@@ -58,13 +58,14 @@ module.exports.welcome = function (req, res) {
 				}else if(req.configuration.ivr.options[escolha].friendlyName=='Marketing'){
 					twiml.play("https://secure2.domdigital.pt/domdigital/micael/mp3/marketing.mp3")
 				}
+				twiml.pause({length: 3})
 
 		}
 
 	})
 
-	twiml.say('You did not say anything or enter any digits.')
-	//twiml.play("https://secure2.domdigital.pt/domdigital/micael/mp3/nao_marcou.mp3")
+	//twiml.say('You did not say anything or enter any digits.')
+	twiml.play("https://secure2.domdigital.pt/domdigital/micael/mp3/nao_marcou.mp3")
 	twiml.pause({length: 2})
 	twiml.redirect({method: 'GET'}, 'welcome')
 
@@ -124,9 +125,9 @@ module.exports.selectTeam = function (req, res) {
 			numDigits: 1,
 			timeout: 5
 		}, function (node) {
-			node.say('Press a key if you want a callback from ' + team.friendlyName + ', or stay on the line')
+			//node.say('Press a key if you want a callback from ' + team.friendlyName + ', or stay on the line')
 
-			/*
+			
 			twiml.play("https://secure2.domdigital.pt/domdigital/micael/mp3/pressione_volta.mp3")
 
 			if(team.friendlyName=='Sales'){
@@ -138,7 +139,7 @@ module.exports.selectTeam = function (req, res) {
 				}
 			twiml.play("https://secure2.domdigital.pt/domdigital/micael/mp3/continue.mp3")
 			
-			*/
+			
 		})
 
 		/* create task attributes */
@@ -187,11 +188,11 @@ module.exports.createTask = function (req, res) {
 
 		if (err) {
 			console.log(err)
-			twiml.say('An application error occured, the demo ends now')
-			//twiml.play("https://secure2.domdigital.pt/domdigital/micael/mp3/erro.mp3")
+			//twiml.say('An application error occured, the demo ends now')
+			twiml.play("https://secure2.domdigital.pt/domdigital/micael/mp3/erro.mp3")
 		}  else {
-			twiml.say('Thanks for your callback request, an agent will call you back a soon.')
-			//twiml.play("https://secure2.domdigital.pt/domdigital/micael/mp3/obrigado_pedido.mp3")
+			//twiml.say('Thanks for your callback request, an agent will call you back a soon.')
+			twiml.play("https://secure2.domdigital.pt/domdigital/micael/mp3/obrigado_pedido.mp3")
 			twiml.hangup()
 		}
 
