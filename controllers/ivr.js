@@ -26,22 +26,21 @@ module.exports.welcome = function (req, res) {
 		hints: keywords.join()
 	}, function (node) {
 		//node.say(req.configuration.ivr.text)
-		if(req.configuration.ivr.options.length==3){
+		if(req.configuration.ivr.options[1].friendlyName=='Sales'){
 			twiml.play("http://demo.twilio.com/hellomonkey/monkey.mp3")
 		}else{twiml.play("https://secure2.domdigital.pt/domdigital/micael/selecao_invalida.mp3")}
 
-		/*if(req.configuration.ivr.options[i].friendlyName == 'Sales'){
-			twiml.play("https://secure2.domdigital.pt/domdigital/micael/selecao_invalida.mp3")
-		}else {
-			twiml.play("http://demo.twilio.com/hellomonkey/monkey.mp3")
-		}*/
 
 		/*twiml.play("https://secure2.domdigital.pt/domdigital/micael/marque_numero.mp3")
 
 		for(escolha=1; escolha <= req.configuration.ivr.options.length; escolha++ ){
 		twiml.play("https://secure2.domdigital.pt/domdigital/micael/marque_numero.mp3")
-				if(req.configuration.ivr.options[i].friendlyName=='Sales'){
+				if(req.configuration.ivr.options[escolha].friendlyName=='Sales'){
 					twiml.play("https://secure2.domdigital.pt/domdigital/micael/vendas.mp3")
+				}else if(req.configuration.ivr.options[escolha].friendlyName=='Support'){
+					twiml.play("https://secure2.domdigital.pt/domdigital/micael/suporte.mp3")
+				}else if(req.configuration.ivr.options[escolha].friendlyName=='Marketing'){
+					twiml.play("https://secure2.domdigital.pt/domdigital/micael/marketing.mp3")
 				}
 
 		}*/
