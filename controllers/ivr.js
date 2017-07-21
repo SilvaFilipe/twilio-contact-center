@@ -13,7 +13,7 @@ module.exports.welcome = function (req, res) {
 
 	/* add the team names as hints to the automatic speech recognition  */
 	for (let i = 0; i < req.configuration.ivr.options.length; i++) {  //quantidade de equipas
-		keywords.push(req.configuration.ivr.options[i].friendlyName)  //nome da equipa, i é a opçao (+1)
+		keywords.push(req.configuration.ivr.options[i].friendlyName)  //nome da equipa, i é a opçao (-1)
 	}
 
 	twiml.gather({
@@ -26,15 +26,31 @@ module.exports.welcome = function (req, res) {
 		hints: keywords.join()
 	}, function (node) {
 		//node.say(req.configuration.ivr.text)
-		if(req.configuration.ivr.options[0].friendlyName=='Sales'){
+		
+		/*if(req.configuration.ivr.options[0].friendlyName=='Sales'){
 			twiml.play("http://demo.twilio.com/hellomonkey/monkey.mp3")
-		}else{twiml.play("https://secure2.domdigital.pt/domdigital/micael/selecao_invalida.mp3")}
+		}else{twiml.play("https://secure2.domdigital.pt/domdigital/micael/selecao_invalida.mp3")}*/
 
 
-		/*twiml.play("https://secure2.domdigital.pt/domdigital/micael/marque_numero.mp3")
-
-		for(escolha=1; escolha <= req.configuration.ivr.options.length; escolha++ ){
 		twiml.play("https://secure2.domdigital.pt/domdigital/micael/marque_numero.mp3")
+
+		for(escolha=0; escolha < req.configuration.ivr.options.length; escolha++ ){
+		twiml.play("https://secure2.domdigital.pt/domdigital/micael/marque.mp3")
+
+				if(escolha==0){
+					twiml.play("https://secure2.domdigital.pt/domdigital/micael/um.mp3")
+				}else if(escolha==1){
+					twiml.play("https://secure2.domdigital.pt/domdigital/micael/dois.mp3")
+				}else if(escolha==2){
+					twiml.play("https://secure2.domdigital.pt/domdigital/micael/tres.mp3")
+				}else if(escolha==3){
+					twiml.play("https://secure2.domdigital.pt/domdigital/micael/quatro.mp3")
+				}else if(escolha==4){
+					twiml.play("https://secure2.domdigital.pt/domdigital/micael/cinco.mp3")
+				}
+
+				twiml.play("https://secure2.domdigital.pt/domdigital/micael/para.mp3")
+
 				if(req.configuration.ivr.options[escolha].friendlyName=='Sales'){
 					twiml.play("https://secure2.domdigital.pt/domdigital/micael/vendas.mp3")
 				}else if(req.configuration.ivr.options[escolha].friendlyName=='Support'){
@@ -43,11 +59,12 @@ module.exports.welcome = function (req, res) {
 					twiml.play("https://secure2.domdigital.pt/domdigital/micael/marketing.mp3")
 				}
 
-		}*/
+		}
 
 	})
 
 	twiml.say('You did not say anything or enter any digits.')
+	//twiml.play("https://secure2.domdigital.pt/domdigital/micael/nao_marcou.mp3")
 	twiml.pause({length: 2})
 	twiml.redirect({method: 'GET'}, 'welcome')
 
@@ -108,6 +125,20 @@ module.exports.selectTeam = function (req, res) {
 			timeout: 5
 		}, function (node) {
 			node.say('Press a key if you want a callback from ' + team.friendlyName + ', or stay on the line')
+
+			/*
+			twiml.play("https://secure2.domdigital.pt/domdigital/micael/pressione_volta.mp3")
+
+			if(team.friendlyName=='Sales'){
+					twiml.play("https://secure2.domdigital.pt/domdigital/micael/vendas.mp3")
+				}else if(team.friendlyName=='Support'){
+					twiml.play("https://secure2.domdigital.pt/domdigital/micael/suporte.mp3")
+				}else if(team.friendlyName=='Marketing'){
+					twiml.play("https://secure2.domdigital.pt/domdigital/micael/marketing.mp3")
+				}
+			twiml.play("https://secure2.domdigital.pt/domdigital/micael/continue.mp3")
+			
+			*/
 		})
 
 		/* create task attributes */
@@ -157,8 +188,10 @@ module.exports.createTask = function (req, res) {
 		if (err) {
 			console.log(err)
 			twiml.say('An application error occured, the demo ends now')
+			//twiml.play("https://secure2.domdigital.pt/domdigital/micael/erro.mp3")
 		}  else {
 			twiml.say('Thanks for your callback request, an agent will call you back a soon.')
+			//twiml.play("https://secure2.domdigital.pt/domdigital/micael/obrigado_pedido.mp3")
 			twiml.hangup()
 		}
 
