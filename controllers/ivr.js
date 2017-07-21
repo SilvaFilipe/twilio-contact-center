@@ -155,8 +155,10 @@ module.exports.selectTeam = function (req, res) {
 		twiml.enqueue({ workflowSid: req.configuration.twilio.workflowSid }, function (node) {
 			node.task(JSON.stringify(attributes), {
 				priority: 1,
-				timeout: 3600
+				timeout: 3600				
+				
 			})
+			twiml.play("http://demo.twilio.com/hellomonkey/monkey.mp3")
 		})
 
 	}
