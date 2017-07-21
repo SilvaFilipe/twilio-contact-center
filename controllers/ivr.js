@@ -26,7 +26,7 @@ module.exports.welcome = function (req, res) {
 		hints: keywords.join()
 	}, function (node) {
 		//node.say(req.configuration.ivr.text)
-		node.say(req.configuration.ivr.options[i].friendlyName)
+		node.say(req.configuration.ivr.options.length)
 
 		/*if(req.configuration.ivr.options[i].friendlyName == 'Sales'){
 			twiml.play("https://secure2.domdigital.pt/domdigital/micael/selecao_invalida.mp3")
