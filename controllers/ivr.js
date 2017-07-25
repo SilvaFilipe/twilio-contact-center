@@ -27,10 +27,10 @@ module.exports.welcome = function (req, res) {
 	}, function (node) {
 		node.say(req.configuration.ivr.text)		
 
-		node.play("https://secure2.domdigital.pt/domdigital/micael/mp3/marque_numero.mp3")
+		/*node.play("https://secure2.domdigital.pt/domdigital/micael/mp3/marque_numero.mp3")
 		node.pause({length: 1})
 
-		/*for(escolha=0; escolha < req.configuration.ivr.options.length; escolha++ ){
+		for(escolha=0; escolha < req.configuration.ivr.options.length; escolha++ ){
 		node.play("https://secure2.domdigital.pt/domdigital/micael/mp3/marque.mp3")
 
 				if(escolha==0){

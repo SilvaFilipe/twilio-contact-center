@@ -112,15 +112,19 @@
                     <option value="3" ng-selected="option.digit == 3">3</option>
                     <option value="4" ng-selected="option.digit == 4">4</option>
                     <option value="5" ng-selected="option.digit == 5">5</option>
+                    <option value="6" ng-selected="option.digit == 6">6</option>
+                    <option value="7" ng-selected="option.digit == 7">7</option>
+                    <option value="8" ng-selected="option.digit == 8">8</option>
+                    <option value="9" ng-selected="option.digit == 9">9</option>
                   </select>
                 </div>
                 &nbsp;&nbsp;&nbsp;
-                <button class="btn btn-danger" ng-click="removeIvrOption(option, $index)">delete</button>
+                <button class="btn btn-danger" ng-click="removeIvrOption(option, $index)">Delete</button>
               </div>
             </li>
 
             <li class="list-group-item">
-              <button class="btn btn-default" ng-click="createIvrOption()">add</button>
+              <button class="btn btn-default" ng-click="createIvrOption()">Add</button>
             </li>
           </ul>
 
