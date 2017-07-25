@@ -27,10 +27,10 @@ module.exports.welcome = function (req, res) {
 	}, function (node) {
 		node.say(req.configuration.ivr.text)		
 
-		/*node.play("https://secure2.domdigital.pt/domdigital/micael/mp3/marque_numero.mp3")
+		node.play("https://secure2.domdigital.pt/domdigital/micael/mp3/marque_numero.mp3")
 		node.pause({length: 1})
 
-		for(escolha=0; escolha < req.configuration.ivr.options.length; escolha++ ){
+		/*for(escolha=0; escolha < req.configuration.ivr.options.length; escolha++ ){
 		node.play("https://secure2.domdigital.pt/domdigital/micael/mp3/marque.mp3")
 
 				if(escolha==0){
@@ -107,10 +107,10 @@ module.exports.selectTeam = function (req, res) {
 	var twiml = new twilio.TwimlResponse()
 
 	/* the caller pressed a key that does not match any team */
-	if (team.id == 2) {
+	if (team === null) {
 		// redirect the call to the previous twiml
 		//twiml.play("https://secure2.domdigital.pt/domdigital/micael/mp3/selecao_invalida.mp3")
-		twiml.say('Your selection was not wrfrfergergergergergvalid, please try again')
+		twiml.say('Your selection was not valid, please try again')
 		twiml.pause({length: 2})
 		twiml.redirect({ method: 'GET' }, 'welcome')
 	} else {
