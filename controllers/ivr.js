@@ -107,7 +107,7 @@ module.exports.selectTeam = function (req, res) {
 	var twiml = new twilio.TwimlResponse()
 
 	/* the caller pressed a key that does not match any team */
-	if (team === 2) {
+	if (team == 2) {
 		// redirect the call to the previous twiml
 		//twiml.play("https://secure2.domdigital.pt/domdigital/micael/mp3/selecao_invalida.mp3")
 		twiml.say('Your selection was sdkfbsdifbsdfdsfsdfnot valid, please try again')
