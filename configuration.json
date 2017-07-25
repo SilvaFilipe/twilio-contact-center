@@ -11,6 +11,11 @@
 				"friendlyName": "Support",
 				"digit": 2,
 				"id": "support"
+			},
+			{
+				"friendlyName": "Marketing",
+				"digit": 3,
+				"id": "marketing"
 			}
 		]
 	},
