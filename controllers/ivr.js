@@ -25,16 +25,12 @@ module.exports.welcome = function (req, res) {
 		language: 'en-us',
 		hints: keywords.join()
 	}, function (node) {
-		//node.say(req.configuration.ivr.text)
-		
-		/*if(req.configuration.ivr.options[0].friendlyName=='Sales'){
-			twiml.play("http://demo.twilio.com/hellomonkey/monkey.mp3")
-		}else{twiml.play("https://secure2.domdigital.pt/domdigital/micael/mp3/selecao_invalida.mp3")}*/
+		node.say(req.configuration.ivr.text)		
 
 		node.play("https://secure2.domdigital.pt/domdigital/micael/mp3/marque_numero.mp3")
 		node.pause({length: 1})
 
-		for(escolha=0; escolha < req.configuration.ivr.options.length; escolha++ ){
+		/*for(escolha=0; escolha < req.configuration.ivr.options.length; escolha++ ){
 		node.play("https://secure2.domdigital.pt/domdigital/micael/mp3/marque.mp3")
 
 				if(escolha==0){
@@ -59,12 +55,12 @@ module.exports.welcome = function (req, res) {
 					node.play("https://secure2.domdigital.pt/domdigital/micael/mp3/marketing.mp3")
 				}
 				
-		}twiml.pause({length: 0})
+		}twiml.pause({length: 0})*/
 
 	})
 
-	//twiml.say('You did not say anything or enter any digits.')
-	twiml.play("https://secure2.domdigital.pt/domdigital/micael/mp3/nao_marcou.mp3")
+	twiml.say('You did not say anything or enter any digits.')
+	//twiml.play("https://secure2.domdigital.pt/domdigital/micael/mp3/nao_marcou.mp3")
 	twiml.pause({length: 1})
 	twiml.redirect({method: 'GET'}, 'welcome')
 
@@ -113,8 +109,8 @@ module.exports.selectTeam = function (req, res) {
 	/* the caller pressed a key that does not match any team */
 	if (team === null) {
 		// redirect the call to the previous twiml
-		twiml.play("https://secure2.domdigital.pt/domdigital/micael/mp3/selecao_invalida.mp3")
-		//twiml.say('Your selection was not valid, please try again')
+		//twiml.play("https://secure2.domdigital.pt/domdigital/micael/mp3/selecao_invalida.mp3")
+		twiml.say('Your selection was not valid, please try again')
 		twiml.pause({length: 2})
 		twiml.redirect({ method: 'GET' }, 'welcome')
 	} else {
@@ -124,10 +120,10 @@ module.exports.selectTeam = function (req, res) {
 			numDigits: 1,
 			timeout: 5
 		}, function (node) {
-			//node.say('Press a key if you want a callback from ' + team.friendlyName + ', or stay on the line')
+			node.say('Press a key if you want a callback from ' + team.friendlyName + ', or stay on the line')
 
 			
-			twiml.play("https://secure2.domdigital.pt/domdigital/micael/mp3/pressione_volta.mp3")
+		/*	twiml.play("https://secure2.domdigital.pt/domdigital/micael/mp3/pressione_volta.mp3")
 
 			if(team.friendlyName=='Sales'){
 					twiml.play("https://secure2.domdigital.pt/domdigital/micael/mp3/vendas.mp3")
@@ -136,7 +132,8 @@ module.exports.selectTeam = function (req, res) {
 				}else if(team.friendlyName=='Marketing'){
 					twiml.play("https://secure2.domdigital.pt/domdigital/micael/mp3/marketing.mp3")
 				}
-			twiml.play("https://secure2.domdigital.pt/domdigital/micael/mp3/continue.mp3")
+			
+			twiml.play("https://secure2.domdigital.pt/domdigital/micael/mp3/continue.mp3")*/
 			
 			
 		})
@@ -158,7 +155,8 @@ module.exports.selectTeam = function (req, res) {
 				timeout: 3600				
 				
 			})
-			node1.play("https://secure2.domdigital.pt/domdigital/micael/mp3/marque_numero.mp3")
+				//twiml.play("http://demo.twilio.com/hellomonkey/monkey.mp3")
+			
 		})
 
 	}
@@ -189,11 +187,11 @@ module.exports.createTask = function (req, res) {
 
 		if (err) {
 			console.log(err)
-			//twiml.say('An application error occured, the demo ends now')
-			twiml.play("https://secure2.domdigital.pt/domdigital/micael/mp3/erro.mp3")
+			twiml.say('An application error occured, the demo ends now')
+			//twiml.play("https://secure2.domdigital.pt/domdigital/micael/mp3/erro.mp3")
 		}  else {
-			//twiml.say('Thanks for your callback request, an agent will call you back a soon.')
-			twiml.play("https://secure2.domdigital.pt/domdigital/micael/mp3/obrigado_pedido.mp3")
+			twiml.say('Thanks for your callback request, an agent will call you back a soon.')
+			//twiml.play("https://secure2.domdigital.pt/domdigital/micael/mp3/obrigado_pedido.mp3")
 			twiml.hangup()
 		}
 
