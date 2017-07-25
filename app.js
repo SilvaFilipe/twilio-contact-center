@@ -34,31 +34,6 @@ app.use(bodyParser.urlencoded({
 
 app.use(function (req, res, next) {
 
-	var replaceErrors = function (key, value) {
-		if (value instanceof Error) {
-			var error = {}
-
-			Object.getOwnPropertyNames(value).forEach(function (key) {
-				error[key] = value[key]
-			})
-
-			return error
-		}
-
-		return value
-	}
-
-	res.convertErrorToJSON = (error) => {
-		console.log(error)
-
-		return JSON.stringify(error, replaceErrors)
-	}
-
-	next()
-})
-
-app.use(function (req, res, next) {
-
 	util.getConfiguration(function (err, configuration) {
 		if (err) {
 			res.status(500).json({stack: err.stack, message: err.message})
@@ -71,40 +46,19 @@ app.use(function (req, res, next) {
 
 })
 
-app.use('/', function (req, res, next) {
-	if (req.path.substr(0,4) === '/api') {
-		res.set({
-			'Content-Type': 'application/json',
-			'Cache-Control': 'public, max-age=0',
-		})
-	}
-
-	/* override content type for twiml routes */
-	if (req.path.includes('/api/ivr') || req.path.includes('/agents/call')) {
-		res.set({
-			'Content-Type': 'application/xml',
-			'Cache-Control': 'public, max-age=0',
-		})
-	}
-
-	next()
-})
-
 var router = express.Router()
 
 var setup = require('./controllers/setup.js')
 
 router.route('/setup').get(setup.get)
 router.route('/setup').post(setup.update)
-
-var setupPhoneNumber = require('./controllers/setup-phone-number.js')
-
-router.route('/setup/phone-number/validate').post(setupPhoneNumber.validate)
-router.route('/setup/phone-number').post(setupPhoneNumber.update)
+router.route('/setup/workspace').get(setup.getWorkspace)
+router.route('/setup/activities').get(setup.getActivities)
 
 var validate = require('./controllers/validate.js')
 
 router.route('/validate/setup').post(validate.validateSetup)
+router.route('/validate/phone-number').post(validate.validatePhoneNumber)
 
 var tasks = require('./controllers/tasks.js')
 
@@ -130,8 +84,7 @@ router.route('/ivr/create-task').get(ivr.createTask)
 /* routes called by the Twilio TaskRouter */
 var taskrouter = require('./controllers/taskrouter.js')
 
-router.route('/taskrouter/workspace').get(taskrouter.getWorkspace)
-router.route('/taskrouter/activities').get(taskrouter.getActivities)
+router.route('/taskrouter/assignment').post(taskrouter.assignment)
 
 var workers = require('./controllers/workers.js')
 

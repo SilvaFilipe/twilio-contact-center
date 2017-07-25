@@ -56,7 +56,7 @@ app.controller('ChatController', function ($scope, $http, $timeout, $log) {
 
 				$scope.session.token = response.data.token;
 				$scope.session.identity = response.data.identity;
-				$scope.setupClient(response.data.channel.sid);
+				$scope.setupClient(response.data.channelSid);
 
 			}, function onError (response) {
 
