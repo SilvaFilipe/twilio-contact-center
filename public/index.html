@@ -2,7 +2,9 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>Twilio - CTI Central</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>Twilio Contact Center</title>
 
 	<link rel="stylesheet" href="/styles/bootstrap.min.css" type="text/css" />
 	<link rel="stylesheet" href="/styles/default.css" type="text/css" />
@@ -16,7 +18,7 @@
 
 		<div class="row">
 			<div class="page-header col-md-12">
-				<h1 style = "font-size:36px" >Twilio - CTI Central</h1>
+				<h1>Twilio Contact Center</h1>
 			</div>
 		</div>
 
@@ -24,12 +26,14 @@
 
 			<div class="col-md-4 col-md-push-8">
 
-				<!--<div ng-if="setup == 'VALID'" class="alert alert-dismissible alert-success">
-					<strong>AA</strong><br />aa
-				</div> -->
+				<div ng-if="setup == 'VALID'" class="alert alert-dismissible alert-success">
+					<strong>Well done!</strong><br />You sucessfully setup the demo.
+				</div>
 
 				<div ng-if="setup == 'INVALID'" class="alert alert-dismissible alert-danger">
 					<strong>Oh snap!</strong><br />
+
+					<span ng-if="code == 'SERVER_TIMEOUT'">Timeout occured, We could not talk to the server? is it running is your connection to twilio slow?</span>
 					
 					<span ng-if="code == 'TWILIO_ACCOUNT_SID_INVALID'">The environment variable TWILIO_ACCOUNT_SID is not set or incorrect. If you are on Heroku please update your application settings.</span>
 					
@@ -45,26 +49,33 @@
 
 					<span ng-if="code == 'TWILIO_APPLICATION_NOT_ACCESSIBLE'">The application could not access the TwiML Application.</span>
 				
+					<span ng-if="code == 'TWILIO_PHONE_NUMBER_UNKNOWN'">The configured Twilio number was not found. Please run <strong>http://&lt;your_application&gt;/setup</strong></span>
+
+					<span ng-if="code == 'TWILIO_PHONE_NUMBER_VOICE_URL_INVALID'">The Twilio number Voice URL does not point to this server. Please run <strong>http://&lt;your_application&gt;/setup</strong></span>
+
+					<span ng-if="code == 'TWILIO_UNKNOWN_ERROR'">Please check the server console.</span>
+
 				</div>
 
 			</div>
 
 			<div class="col-md-8 col-md-pull-4">
 
-				<h4>Call Center Administration</h4>
-				<div>
-					<a href="/administration/index.html" class="btn btn-primary">Open</a>
-					<a href="/setup" class="btn btn-primary">Setup</a>
-				
-				</div>
+				<h3>Call Center Administration</h3>
+				<span>A basic administration interface to create and delete new call centre agents.</span><br><br>
+				<div><a href="/administration/index.html" class="btn btn-primary">Open</a></div>
 
-				<h4>Call Agent Page</h4>
+				<h3>Call Agent Login</h3>
+				<span>The working environment for agents. Agents need to open this page and log in.</span>
+				<br><br>
 				<div><a href="/callcenter/index.html" class="btn btn-primary">Open</a></div>
 
-				<h4>Browser Assistance</h4>
+				<h3>Company's Website</h3>
+				<span>Page for customers who want to talk to an agent. Users can request a callback, call the agents via phone, request video support or chat with an agent</span>
+				<br><br>
 				<div>
-					<a href="/contact/index.html" class="btn btn-primary">Callback Request</a>
-					<!--<a href="/contact/chat.html" class="btn btn-primary">Web Chat</a>-->
+					<a href="/contact/index.html" class="btn btn-primary">Inbound &amp; Callback Request</a>
+					<a href="/contact/chat.html" class="btn btn-primary">Web Chat</a>
 					<a href="/contact/video.html" class="btn btn-primary">Video Call</a>
 				</div>
 

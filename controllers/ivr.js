@@ -1,75 +1,37 @@
-const twilio = require('twilio')
+const Twilio 	= require('twilio')
 
-/* client for Twilio TaskRouter */
-const taskrouterClient = new twilio.TaskRouterClient(
-	process.env.TWILIO_ACCOUNT_SID,
-	process.env.TWILIO_AUTH_TOKEN,
-	process.env.TWILIO_WORKSPACE_SID)
+const taskrouterHelper = require('./helpers/taskrouter-helper.js')
 
 module.exports.welcome = function (req, res) {
-	let twiml = new twilio.TwimlResponse()
+	const twiml =  new Twilio.twiml.VoiceResponse()
 
 	let keywords = []
 
 	/* add the team names as hints to the automatic speech recognition  */
-	for (let i = 0; i < req.configuration.ivr.options.length; i++) {  //quantidade de equipas
-		keywords.push(req.configuration.ivr.options[i].friendlyName)  //nome da equipa, i é a opçao (-1)
+	for (let i = 0; i < req.configuration.ivr.options.length; i++) {
+		keywords.push(req.configuration.ivr.options[i].friendlyName)
 	}
 
-	twiml.gather({
+	const gather = twiml.gather({
 		input: 'dtmf speech',
 		action: 'select-team',
 		method: 'GET',
 		numDigits: 1,
 		timeout: 4,
-		language: 'en-us',
+		language: 'en-US',
 		hints: keywords.join()
-	}, function (node) {
-		node.say(req.configuration.ivr.text)		
-
-		node.play("https://secure2.domdigital.pt/domdigital/micael/mp3/marque_numero.mp3")
-		node.pause({length: 1})
-
-		/*for(escolha=0; escolha < req.configuration.ivr.options.length; escolha++ ){
-		node.play("https://secure2.domdigital.pt/domdigital/micael/mp3/marque.mp3")
-
-				if(escolha==0){
-					node.play("https://secure2.domdigital.pt/domdigital/micael/mp3/um.mp3")
-				}else if(escolha==1){
-					node.play("https://secure2.domdigital.pt/domdigital/micael/mp3/dois.mp3")
-				}else if(escolha==2){
-					node.play("https://secure2.domdigital.pt/domdigital/micael/mp3/tres.mp3")
-				}else if(escolha==3){
-					node.play("https://secure2.domdigital.pt/domdigital/micael/mp3/quatro.mp3")
-				}else if(escolha==4){
-					node.play("https://secure2.domdigital.pt/domdigital/micael/mp3/cinco.mp3")
-				}
-
-				node.play("https://secure2.domdigital.pt/domdigital/micael/mp3/para.mp3")
-
-				if(req.configuration.ivr.options[escolha].friendlyName=='Sales'){
-					node.play("https://secure2.domdigital.pt/domdigital/micael/mp3/vendas.mp3")
-				}else if(req.configuration.ivr.options[escolha].friendlyName=='Support'){
-					node.play("https://secure2.domdigital.pt/domdigital/micael/mp3/suporte.mp3")
-				}else if(req.configuration.ivr.options[escolha].friendlyName=='Marketing'){
-					node.play("https://secure2.domdigital.pt/domdigital/micael/mp3/marketing.mp3")
-				}
-				
-		}twiml.pause({length: 0})*/
-
 	})
 
+	gather.say(req.configuration.ivr.text)
+
 	twiml.say('You did not say anything or enter any digits.')
-	//twiml.play("https://secure2.domdigital.pt/domdigital/micael/mp3/nao_marcou.mp3")
-	twiml.pause({length: 1})
+	twiml.pause({length: 2})
 	twiml.redirect({method: 'GET'}, 'welcome')
 
-	res.setHeader('Content-Type', 'application/xml')
-	res.setHeader('Cache-Control', 'public, max-age=0')
 	res.send(twiml.toString())
 }
 
-let analyzeKeypadInput = function (digits, options) {
+var analyzeKeypadInput = function (digits, options) {
 
 	for (let i = 0; i < options.length; i++) {
 		if (parseInt(digits) === options[i].digit) {
@@ -80,7 +42,7 @@ let analyzeKeypadInput = function (digits, options) {
 	return null
 }
 
-let analyzeSpeechInput = function (text, options) {
+var analyzeSpeechInput = function (text, options) {
 
 	for (let i = 0; i < options.length; i++) {
 		if (text.toLowerCase().includes(options[i].friendlyName.toLowerCase())) {
@@ -96,7 +58,7 @@ module.exports.selectTeam = function (req, res) {
 
 	/* check if we got a dtmf input or a speech-to-text */
 	if (req.query.SpeechResult) {
-		console.log(req.query.SpeechResult)
+		console.log('SpeechResult: ' + req.query.SpeechResult)
 		team = analyzeSpeechInput(req.query.SpeechResult, req.configuration.ivr.options)
 	}
 
@@ -104,42 +66,27 @@ module.exports.selectTeam = function (req, res) {
 		team = analyzeKeypadInput(req.query.Digits, req.configuration.ivr.options)
 	}
 
-	var twiml = new twilio.TwimlResponse()
+	const twiml =  new Twilio.twiml.VoiceResponse()
 
 	/* the caller pressed a key that does not match any team */
 	if (team === null) {
 		// redirect the call to the previous twiml
-		//twiml.play("https://secure2.domdigital.pt/domdigital/micael/mp3/selecao_invalida.mp3")
 		twiml.say('Your selection was not valid, please try again')
 		twiml.pause({length: 2})
 		twiml.redirect({ method: 'GET' }, 'welcome')
 	} else {
-		twiml.gather({
+
+		const gather = twiml.gather({
 			action: 'create-task?teamId=' + team.id + '&teamFriendlyName=' + encodeURIComponent(team.friendlyName),
 			method: 'GET',
 			numDigits: 1,
 			timeout: 5
-		}, function (node) {
-			node.say('Press a key if you want a callback from ' + team.friendlyName + ', or stay on the line')
-
-			
-		/*	twiml.play("https://secure2.domdigital.pt/domdigital/micael/mp3/pressione_volta.mp3")
-
-			if(team.friendlyName=='Sales'){
-					twiml.play("https://secure2.domdigital.pt/domdigital/micael/mp3/vendas.mp3")
-				}else if(team.friendlyName=='Support'){
-					twiml.play("https://secure2.domdigital.pt/domdigital/micael/mp3/suporte.mp3")
-				}else if(team.friendlyName=='Marketing'){
-					twiml.play("https://secure2.domdigital.pt/domdigital/micael/mp3/marketing.mp3")
-				}
-			
-			twiml.play("https://secure2.domdigital.pt/domdigital/micael/mp3/continue.mp3")*/
-			
-			
 		})
 
+		gather.say('Press a key if you want a callback from ' + team.friendlyName + ', or stay on the line')
+
 		/* create task attributes */
-		var attributes = {
+		const attributes = {
 			text: 'Caller answered IVR with option "' + team.friendlyName + '"',
 			channel: 'phone',
 			phone: req.query.From,
@@ -149,26 +96,18 @@ module.exports.selectTeam = function (req, res) {
 			team: team.id
 		}
 
-		twiml.enqueue({ workflowSid: req.configuration.twilio.workflowSid }, function (node) {
-			node.task(JSON.stringify(attributes), {
-				priority: 1,
-				timeout: 3600				
-				
-			})
-				//twiml.play("http://demo.twilio.com/hellomonkey/monkey.mp3")
-			
-		})
+		twiml.enqueueTask({
+			workflowSid: req.configuration.twilio.workflowSid,
+		}).task({priority: 1, timeout: 3600}, JSON.stringify(attributes));
 
 	}
 
-	res.setHeader('Content-Type', 'application/xml')
-	res.setHeader('Cache-Control', 'public, max-age=0')
 	res.send(twiml.toString())
 }
 
 module.exports.createTask = function (req, res) {
 	/* create task attributes */
-	var attributes = {
+	const attributes = {
 		text: 'Caller answered IVR with option "' + req.query.teamFriendlyName + '"',
 		channel: 'phone',
 		phone: req.query.From,
@@ -178,26 +117,16 @@ module.exports.createTask = function (req, res) {
 		team: req.query.teamId
 	}
 
-	taskrouterClient.workspace.tasks.create({
-		WorkflowSid: req.configuration.twilio.workflowSid,
-		attributes: JSON.stringify(attributes)
-	}, function (err, task) {
+	const twiml =  new Twilio.twiml.VoiceResponse()
 
-		var twiml = new twilio.TwimlResponse()
-
-		if (err) {
-			console.log(err)
-			twiml.say('An application error occured, the demo ends now')
-			//twiml.play("https://secure2.domdigital.pt/domdigital/micael/mp3/erro.mp3")
-		}  else {
-			twiml.say('Thanks for your callback request, an agent will call you back a soon.')
-			//twiml.play("https://secure2.domdigital.pt/domdigital/micael/mp3/obrigado_pedido.mp3")
+	taskrouterHelper.createTask(req.configuration.twilio.workflowSid, attributes)
+		.then(task => {
+			twiml.say('Thanks for your callback request, an agent will call you back soon.')
 			twiml.hangup()
-		}
-
-		res.setHeader('Content-Type', 'application/xml')
-		res.setHeader('Cache-Control', 'public, max-age=0')
-		res.send(twiml.toString())
-	})
+		}).catch(error => {
+			twiml.say('An application error occured, the demo ends now')
+		}).then(() => {
+			res.send(twiml.toString())
+		})
 
 }
