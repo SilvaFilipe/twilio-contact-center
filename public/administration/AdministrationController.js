@@ -9,7 +9,7 @@ function AdministrationController ($scope, $http, $log, $q) {
 	$scope.agent = null;
 
 	/* UI */
-	$scope.UI = { warning: null, tab: 'agents', isSaving: false };
+	$scope.UI = { warning: null, tab: 'agents', isSaving: false, showForm: false };
 
 	$scope.channels = [
 		{id: 'phone', friendlyName: 'Phone'},
@@ -37,7 +37,6 @@ function AdministrationController ($scope, $http, $log, $q) {
 			$scope.workers = [];
 
 			response.data.forEach(function (worker) {
-				worker.attributes = JSON.parse(worker.attributes);
 				$scope.workers.push(worker);
 			});
 
@@ -88,7 +87,10 @@ function AdministrationController ($scope, $http, $log, $q) {
 	};
 
 	$scope.showAgentForm = function () {
-		$scope.agent = { channels: []};
+		$scope.UI.showForm = true;
+		if (!$scope.agent) {
+			$scope.agent = { channels: []};
+		}
 	};
 
 	$scope.createAgent = function () {
@@ -107,16 +109,21 @@ function AdministrationController ($scope, $http, $log, $q) {
 			attributes: JSON.stringify(attributes)
 		};
 
-		createWorker(worker).then(function(){
-			return retrieveWorkers()
+		createWorker(worker).then(function () {
+			return retrieveWorkers();
 		}).then(function (data) {
-				$log.log('worker successfully created');
-				$scope.UI.isSaving = false;
-				$scope.agent = null;
-			}).catch(function (error) {
-				$scope.UI.warning = error;
-				$scope.$apply();
-			});
+			$log.log('worker successfully created');
+			$scope.UI.isSaving = false;
+			$scope.UI.showForm = false;
+            // reset agent field
+			$scope.agent.friendlyName = null;
+			$scope.agent.contact_uri = null;
+			$scope.agent.team = null;
+			$scope.agent.channels = [];
+		}).catch(function (error) {
+			$scope.UI.warning = error;
+			$scope.$apply();
+		});
 
 	};
 
@@ -180,5 +187,5 @@ function AdministrationController ($scope, $http, $log, $q) {
 }
 
 angular
-	.module('administrationApplication', ['checklist-model'])
+	.module('administrationApplication', ['checklist-model', 'client-name', 'convert-to-number'])
 	.controller('AdministrationController', AdministrationController);
