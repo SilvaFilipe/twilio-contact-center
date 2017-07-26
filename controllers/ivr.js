@@ -25,8 +25,8 @@ module.exports.welcome = function (req, res) {
 	//gather.say(req.configuration.ivr.text)
 
 		//node.say(req.configuration.ivr.text)		
-		node.play("https://secure2.domdigital.pt/domdigital/micael/mp3/marque_numero.mp3")
-		node.pause({length: 1})
+		gather.play("https://secure2.domdigital.pt/domdigital/micael/mp3/marque_numero.mp3")
+		//node.pause({length: 1})
 
 	twiml.say('You did not say anything or enter any digits.')
 	twiml.pause({length: 1})
