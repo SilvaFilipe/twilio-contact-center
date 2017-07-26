@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<title>Twilio Contact Center: Contact Form</title>
+	<title>Twilio - CTI Central: Contact Form</title>
 
 	<link rel="stylesheet" href="/styles/bootstrap.min.css" type="text/css" />
 	<link rel="stylesheet" href="/styles/default.css" type="text/css" />
@@ -20,7 +20,7 @@
 		<div class="row">
 
 			<div class="page-header hidden-sm hidden-xs">
-				<h2>Twilio Contact Center: Contact Form</h2>
+				<h2>Twilio - CTI Central: Contact Form</h2>
 			</div>
 
 			<div class="col-xs-12">
@@ -35,10 +35,10 @@
 
 				<form class="form-horizontal well" name="supportForm">
 					<fieldset>
-						<legend>...let us call you back</legend>
+						<legend>Callback</legend>
 
 						<div class="form-group">
-							<label class="col-md-4 control-label">Department</label>
+							<label class="col-md-4 control-label">Select the department:</label>
 							<div class="col-md-8">
 								<select ng-model="question.team" class="form-control" id="team" required>
 									<option ng-repeat="option in configuration.ivr.options" value="{{ option.id }}">{{ option.friendlyName }}</option>
@@ -55,10 +55,13 @@
 						</div>
 
 						<div class="form-group">
-							<label class="col-md-4 control-label">Your name and phone number?</label>
+							<label class="col-md-4 control-label">What is your name?</label>
 							<div class="col-md-4">
 								<input type="text" placeholder="Name" name="name" ng-model="question.name" class="form-control" required>
 							</div>
+							</div>
+						<div class="form-group">
+						<label class="col-md-4 control-label">What phone do you want a callback to?</label>
 							<div class="col-md-4">
 								<input ng-model-options="{ debounce: 1000 }" type="text" placeholder="+..." name="phone" ng-model="question.phone" class="form-control" required phone-number>
 							</div>
@@ -87,11 +90,11 @@
 			</div>
 
 			<div class="col-md-4 hidden-sm hidden-xs">
-				<h4 style="margin:0px">Call us:</h4>
-				<h3 class="caller-id" style="margin:0px">{{configuration.twilio.callerId}}</h3>
+				<h3 style="margin:0px">Call us:</h3>
+				<h4 class="caller-id" style="margin:0px">{{configuration.twilio.callerId}}</h4>
 
-				<h4>Chat with an agent?</h4>
-				<a href="chat.html">click here</a>
+				<h4>Live-chat with an agent?</h4>
+				<a href="chat.html">Click here</a>
 
 			</div>
 

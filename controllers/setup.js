@@ -72,7 +72,7 @@ module.exports.update = function (req, res) {
 
 			const workflow = {
 				sid: config.twilio.workflowSid,
-				friendlyName: 'Twilio Contact Center Workflow',
+				friendlyName: 'Twilio - CTI Central Workflow',
 				taskReservationTimeout: 1200,
 				configuration: JSON.stringify(workflowConfiguration)
 			}
@@ -190,7 +190,7 @@ module.exports.createOrUpdateApplication = function (configuration, req, callbac
 	if (configuration.twilio.applicationSid) {
 
 		client.applications(configuration.twilio.applicationSid).update({
-			friendlyName: 'Twilio Contact Center Demo',
+			friendlyName: 'Twilio - CTI Central',
 			voiceUrl: url,
 			voiceMethod: 'GET'
 		}, function (err, application) {
@@ -204,7 +204,7 @@ module.exports.createOrUpdateApplication = function (configuration, req, callbac
 	} else  {
 
 		client.applications.create({
-			friendlyName: 'Twilio Contact Center Demo',
+			friendlyName: 'Twilio - CTI Central',
 			voiceUrl: url,
 			voiceMethod: 'GET'
 		}, function (err, application) {

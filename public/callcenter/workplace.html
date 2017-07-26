@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>Twilio Omni Channel Contact Center - Call Agent Interface</title>
+<title>Call Agent Interface</title>
 
   <link rel="stylesheet" href="/styles/default.css" type="text/css" />
   <link rel="stylesheet" href="/styles/bootstrap.css" type="text/css" />
@@ -16,7 +16,7 @@
 <div ng-show="UI.warning.browser" class="panel panel-default ui-warning" ng-cloak>{{UI.warning.browser}}</div>
 <div ng-show="UI.warning.worker" class="panel panel-default ui-warning" ng-cloak>{{UI.warning.worker}}</div>
 
-<div class="container" style="width:860px">
+<div class="container" style="width:340px">
 
   <section class="workflow-controller" ng-cloak>
 
@@ -24,10 +24,10 @@
 
       <div class="panel-body">
 
-        <div class="logout"><span ng-click="logout()">logout</span></div> 
-        <h3 class="name" class="page-header">{{worker.friendlyName}}&#39;s Call Agent Interface</h3>
+        <span><h3 class="name" style="font-size:1.2em" class="page-header">Agent: {{worker.friendlyName}}</h3>
+        <h4 ng-click="logout()" style="font-size:0.7em"  class="btn btn-primary" >Logout</h4> </span>
 
-        <div>Status:&nbsp;<span style="font-size:1em" ng-class="{'label-success': worker.activityName == 'Idle', 'label-danger': worker.activityName == 'Busy', 'label-default': worker.activityName == 'Offline', 'label-warning': worker.activityName == 'Reserved'}" class="label">{{worker.activityName}}</span></div>
+        <div><span style="font-size:1em" ng-class="{'label-success': worker.activityName == 'Idle', 'label-danger': worker.activityName == 'Busy', 'label-default': worker.activityName == 'Offline', 'label-warning': worker.activityName == 'Reserved'}" class="label">{{worker.activityName}}</span></div>
 
       <div class="reservations">
 
@@ -55,7 +55,7 @@
       <!-- agent is waiting for new reservation -->
       <div class="panel panel-default agent-waiting" ng-show="reservation == null && task == null">
         <div class="panel-heading">
-          <h4 class="panel-title">Waiting for new task ...</h4>
+          <h4 class="name" style="font-size:1.0em;">Waiting for new task ...</h4>
         </div>
       </div>
       <!-- agent is waiting for new reservation -->
@@ -123,7 +123,7 @@
             <form class="chat-message-form form-horizontal" name="chatMessageForm">
               <div class="form-group">
                 <div class="col-xs-8">
-                  <input ng-model="message" ng-model-options="{ debounce: 250 }" ng-required="true" autocomplete="off" ng-focus="focused()" name="text" type="text" class="form-control" placeholder="say something">
+                  <input ng-model="message" ng-model-options="{ debounce: 250 }" ng-required="true" autocomplete="off" ng-focus="focused()" name="text" type="text" class="form-control" placeholder="Say something...">
                 </div>
                 <div class="col-xs-4">
                   <button ng-disabled="chatMessageForm.$invalid || chatMessageForm.$pristine" class="btn btn-primary" ng-click="send()">Send</button>
@@ -143,31 +143,20 @@
      
     <section ng-controller="PhoneController" ng-cloak class="phone-controller" >
 
-      <input style="font-size:2em; padding-left:10px;" ng-show="isActive == false" ng-model="phoneNumber" type="text" name="phoneNumber" placeholder="+.." />
-      <div class="phone-number" style="font-size:2em; padding-left:10px" ng-if="isActive == true" />{{phoneNumber}}</div>
+      <input style="font-size:1.3em; padding-left:10px;" ng-show="isActive == false" ng-model="phoneNumber" type="text" name="phoneNumber" placeholder="+..." />
+      <div class="phone-number" style="font-size:1.3em; padding-left:10px" ng-if="isActive == true" />{{phoneNumber}}</div>
 
       <div class="keypad">
 
-        <div ng-click="addDigit('1')" class="digit">1</div>
-        <div ng-click="addDigit('2')" class="digit">2</div>
-        <div ng-click="addDigit('3')" class="digit">3</div>
-
-        <div ng-click="addDigit('4')" class="digit">4</div>
-        <div ng-click="addDigit('5')" class="digit">5</div>
-        <div ng-click="addDigit('6')" class="digit">6</div>
-
-        <div ng-click="addDigit('7')" class="digit">7</div>
-        <div ng-click="addDigit('8')" class="digit">8</div>
-        <div ng-click="addDigit('9')" class="digit">9</div>
-
-        <div ng-click="addDigit('*')"class="digit">*</div>
-        <div ng-click="addDigit('0')" class="digit">0</div>
-        <div ng-click="addDigit('#')" class="digit">#</div>
+        <div ng-click="phoneNumber=''; addDigit('+351')" class="digit">PT</div>
+        <div ng-click="phoneNumber=''; addDigit('+33')" class="digit">FR</div>
+        <div ng-click="phoneNumber=''; addDigit('')"class="digit">&#x232b;</div>
+        <div ng-click="phoneNumber=''; addDigit('reservation.task.attributes.name')"class="digit">R</div>
 
       </div>
 
-      <button class="button-call" ng-if="isActive == false" ng-click="call(phoneNumber)">CALL</button>
-      <button class="button-hangup" ng-if="isActive == true" ng-click="hangup()">HANGUP</button>
+      <button class="button-call font-size:1.0em;" ng-if="isActive == false" ng-click="call(phoneNumber)">CALL</button>
+      <button class="button-hangup font-size:1.0em;" ng-if="isActive == true" ng-click="hangup()">HANGUP</button>
       <span class="status">Status: {{status}}</span>
       <span ng-if="error != null" class="status">Error: {{error}}</span>
     </section>
