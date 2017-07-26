@@ -24,7 +24,7 @@ module.exports.welcome = function (req, res) {
 
 	//gather.say(req.configuration.ivr.text)
 
-		node.say(req.configuration.ivr.text)		
+		//node.say(req.configuration.ivr.text)		
 		node.play("https://secure2.domdigital.pt/domdigital/micael/mp3/marque_numero.mp3")
 		node.pause({length: 1})
 
