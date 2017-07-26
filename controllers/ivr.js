@@ -8,8 +8,8 @@ module.exports.welcome = function (req, res) {
 	let keywords = []
 
 	/* add the team names as hints to the automatic speech recognition  */
-	for (let i = 0; i < req.configuration.ivr.options.length; i++) {
-		keywords.push(req.configuration.ivr.options[i].friendlyName)
+	for (let i = 0; i < req.configuration.ivr.options.length; i++) { //quantidade de equipas
+		keywords.push(req.configuration.ivr.options[i].friendlyName) //nome da equipa, i é a opçao (-1)
 	}
 
 	const gather = twiml.gather({
@@ -18,7 +18,7 @@ module.exports.welcome = function (req, res) {
 		method: 'GET',
 		numDigits: 1,
 		timeout: 4,
-		voice: woman,
+	//	voice: woman,
 		language: 'en-US',
 		hints: keywords.join()
 	})
@@ -26,7 +26,7 @@ module.exports.welcome = function (req, res) {
 	gather.say(req.configuration.ivr.text)
 
 	twiml.say('You did not say anything or enter any digits.')
-	twiml.pause({length: 2})
+	twiml.pause({length: 1})
 	twiml.redirect({method: 'GET'}, 'welcome')
 
 	res.send(twiml.toString())
