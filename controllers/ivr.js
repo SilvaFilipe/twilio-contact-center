@@ -27,6 +27,33 @@ module.exports.welcome = function (req, res) {
 		gather.play("https://secure2.domdigital.pt/domdigital/micael/mp3/marque_numero.mp3")
 		gather.pause({length: 1})
 
+		for(escolha=0; escolha < req.configuration.ivr.options.length; escolha++ ){
+		gather.play("https://secure2.domdigital.pt/domdigital/micael/mp3/marque.mp3")
+
+				if(escolha==0){
+					gather.play("https://secure2.domdigital.pt/domdigital/micael/mp3/um.mp3")
+				}else if(escolha==1){
+					gather.play("https://secure2.domdigital.pt/domdigital/micael/mp3/dois.mp3")
+				}else if(escolha==2){
+					gather.play("https://secure2.domdigital.pt/domdigital/micael/mp3/tres.mp3")
+				}else if(escolha==3){
+					gather.play("https://secure2.domdigital.pt/domdigital/micael/mp3/quatro.mp3")
+				}else if(escolha==4){
+					gather.play("https://secure2.domdigital.pt/domdigital/micael/mp3/cinco.mp3")
+				}
+
+				gather.play("https://secure2.domdigital.pt/domdigital/micael/mp3/para.mp3")
+
+				if(req.configuration.ivr.options[escolha].friendlyName=='Sales'){
+					gather.play("https://secure2.domdigital.pt/domdigital/micael/mp3/vendas.mp3")
+				}else if(req.configuration.ivr.options[escolha].friendlyName=='Support'){
+					gather.play("https://secure2.domdigital.pt/domdigital/micael/mp3/suporte.mp3")
+				}else if(req.configuration.ivr.options[escolha].friendlyName=='Marketing'){
+					gather.play("https://secure2.domdigital.pt/domdigital/micael/mp3/marketing.mp3")
+				}
+				
+		}
+
 	twiml.say('You did not say anything or enter any digits.')
 	twiml.pause({length: 1})
 	twiml.redirect({method: 'GET'}, 'welcome')
