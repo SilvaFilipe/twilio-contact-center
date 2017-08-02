@@ -469,8 +469,8 @@
 .video-canvas
 {
 	position: relative;
-	width: 10%;
-	padding-top: 10%;
+	width: 100%;
+	padding-top: 75%;
 }
 
 .video-canvas > div
@@ -551,7 +551,7 @@
 
 .video-canvas #remote-media
 {
-	width: 100%;
+	width: 50%;
 	line-height:0px;
 	position: absolute;
 	z-index: -1;
