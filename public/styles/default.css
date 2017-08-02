@@ -551,7 +551,7 @@
 
 .video-canvas #remote-media
 {
-	width: 50%;
+	width: 100%;
 	line-height:0px;
 	position: absolute;
 	z-index: -1;
@@ -559,7 +559,7 @@
 
 .video-canvas #remote-media video
 {
-	width: 100%;
+	width: 50%;
 }
 
 .video-canvas #local-media
