@@ -469,8 +469,8 @@
 .video-canvas
 {
 	position: relative;
-	width: 100%;
-	padding-top: 75%;
+	width: 10%;
+	padding-top: 10%;
 }
 
 .video-canvas > div
@@ -485,7 +485,7 @@
 
 .video-canvas .button-toggle-media
 {
-	background-color: rgba(0,0,0,0.7);
+	background-color: rgba(65, 152, 255, 0.9);
 	padding: 0px;
 	cursor: pointer;
 	height: 60px;
@@ -512,7 +512,7 @@
 
 .video-canvas .button-leave-room
 {
-	background-color: rgba(0,0,0,0.7);
+	background-color: rgba(65, 152, 255, 0.9);
 	background-image: url(/images/icon_leave_room.svg);
 	padding: 0px;
 	cursor: pointer;
