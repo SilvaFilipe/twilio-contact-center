@@ -16,7 +16,7 @@
 <div ng-show="UI.warning.browser" class="panel panel-default ui-warning" ng-cloak>{{UI.warning.browser}}</div>
 <div ng-show="UI.warning.worker" class="panel panel-default ui-warning" ng-cloak>{{UI.warning.worker}}</div>
 
-<div class="container" style="width:340px">
+<div class="container" style="width:860px">
 
   <section class="workflow-controller" ng-cloak>
 
@@ -55,7 +55,7 @@
       <!-- agent is waiting for new reservation -->
       <div class="panel panel-default agent-waiting" ng-show="reservation == null && task == null">
         <div class="panel-heading">
-          <h4 class="name" style="font-size:1.0em;">Waiting for new task ...</h4>
+          <h4 class="panel-title">Waiting for new task ...</h4>
         </div>
       </div>
       <!-- agent is waiting for new reservation -->
@@ -143,8 +143,8 @@
      
     <section ng-controller="PhoneController" ng-cloak class="phone-controller" >
 
-      <input style="font-size:1.3em; padding-left:10px;" ng-show="isActive == false" ng-model="phoneNumber" type="text" name="phoneNumber" placeholder="+..." />
-      <div class="phone-number" style="font-size:1.3em; padding-left:10px" ng-if="isActive == true" />{{phoneNumber}}</div>
+      <input style="font-size:2em; padding-left:10px;" ng-show="isActive == false" ng-model="phoneNumber" type="text" name="phoneNumber" placeholder="+..." />
+      <div class="phone-number" style="font-size:2em; padding-left:10px" ng-if="isActive == true" />{{phoneNumber}}</div>
 
       <div class="keypad">
 
@@ -155,8 +155,8 @@
 
       </div>
 
-      <button class="button-call font-size:1.0em;" ng-if="isActive == false" ng-click="call(phoneNumber)">CALL</button>
-      <button class="button-hangup font-size:1.0em;" ng-if="isActive == true" ng-click="hangup()">HANGUP</button>
+      <button class="button-call" ng-if="isActive == false" ng-click="call(phoneNumber)">CALL</button>
+      <button class="button-hangup" ng-if="isActive == true" ng-click="hangup()">HANGUP</button>
       <span class="status">Status: {{status}}</span>
       <span ng-if="error != null" class="status">Error: {{error}}</span>
     </section>
