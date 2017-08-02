@@ -592,35 +592,6 @@
 	width: 100%;
 }
 
-.agent-video-canvas #remote-media
-{
-	width: 100%;
-	line-height:0px;
-	position: absolute;
-	z-index: -1;
-}
-
-.agent-video-canvas #remote-media video
-{
-	width: 100%;
-}
-
-.agent-video-canvas #local-media
-{
-	width: 120px;
-	height: 90px;
-	left: 0px;
-	top: 0px;
-	position: absolute;
-}
-
-.agent-video-canvas #local-media video
-{
-	width: 120px; /* resolucao video local*/
-	-webkit-box-shadow: 3px 3px 5px -2px rgba(0,0,0,0.39);
-	-moz-box-shadow: 3px 3px 5px -2px rgba(0,0,0,0.39);
-	box-shadow: 3px 3px 5px -2px rgba(0,0,0,0.39);
-}
 
 .ui-warning
 {
