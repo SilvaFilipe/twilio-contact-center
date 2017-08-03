@@ -1,25 +1,63 @@
-<!DOCTYPE HTML>
-<html>
+<!DOCTYPE html>
+<html lang="en" class="no-js">
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	 <meta http-equiv="x-ua-compatible" content="ie=edge">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Twilio - CTI Central</title>
+ 
+    <link rel="stylesheet" href="style.css" media="screen" />
+   
 
-	<title>Twilio - CTI Central</title>
+    <link href='http://fonts.googleapis.com/css?family=Righteous&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Quicksand:300,400,700' rel='stylesheet' type='text/css'>
 
-	<link rel="stylesheet" href="/styles/bootstrap.min.css" type="text/css" />
-	<link rel="stylesheet" href="/styles/default.css" type="text/css" />
-	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css"
-	type="text/css" rel="stylesheet" />
-	<link href='http://fonts.googleapis.com/css?family=Righteous&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
-	<link href='http://fonts.googleapis.com/css?family=Quicksand:300,400,700' rel='stylesheet' type='text/css'>
-	 <script src="scripts/modernizr.js"></script>
+     <script src="scripts/modernizr.js"></script>
 
 </head>
 
-<body ng-app="indexApplication">
-	<div class="site-container">
+<body>
+
+    <div class="site-container">
+		<div class="row" ng-controller="IndexController" ng-init="validateSetup()">
+
+			<div class="col-md-4 col-md-push-8">
+
+			<!--	<div ng-if="setup == 'VALID'" class="alert alert-dismissible alert-success">
+					<strong>Well done!</strong><br />You sucessfully setup the demo.
+				</div>-->
+
+				<div ng-if="setup == 'INVALID'" class="alert alert-dismissible alert-danger">
+					<strong>Oh snap!</strong><br />
+
+					<span ng-if="code == 'SERVER_TIMEOUT'">Timeout occured, We could not talk to the server? is it running is your connection to twilio slow?</span>
+					
+					<span ng-if="code == 'TWILIO_ACCOUNT_SID_INVALID'">The environment variable TWILIO_ACCOUNT_SID is not set or incorrect. If you are on Heroku please update your application settings.</span>
+					
+					<span ng-if="code == 'TWILIO_AUTH_TOKEN_INVALID'">The environment variable TWILIO_AUTH_TOKEN is not set or incorrect. If you are on Heroku please update your application settings.</span>
+					
+					<span ng-if="code == 'TWILIO_WORKSPACE_SID_INVALID'">The environment variable TWILIO_WORKSPACE_SID is not set or incorrect. If you are on Heroku please update your application settings.</span>
+					
+					<span ng-if="code == 'TWILIO_ACCOUNT_NOT_ACCESSIBLE'">The application could not access the Twilio API with the provided credentials. Please verify Account Sid and Auth Token.</span>
+					
+					<span ng-if="code == 'TWILIO_WORKSPACE_NOT_ACCESSIBLE'">The application could not access the your Twilio Taskrouter workspace please verify the Workspace Sid.</span>
+					
+					<span ng-if="code == 'TWILIO_APPLICATION_SID_INVALID'">The TwiML Applications SID is not set, please complete <strong>http://&lt;your_application&gt;/setup</strong> first</span>
+
+					<span ng-if="code == 'TWILIO_APPLICATION_NOT_ACCESSIBLE'">The application could not access the TwiML Application.</span>
+				
+					<span ng-if="code == 'TWILIO_PHONE_NUMBER_UNKNOWN'">The configured Twilio number was not found. Please run <strong>http://&lt;your_application&gt;/setup</strong></span>
+
+					<span ng-if="code == 'TWILIO_PHONE_NUMBER_VOICE_URL_INVALID'">The Twilio number Voice URL does not point to this server. Please run <strong>http://&lt;your_application&gt;/setup</strong></span>
+
+					<span ng-if="code == 'TWILIO_UNKNOWN_ERROR'">Please check the server console.</span>
+
+				</div>
+
+			</div>
+			</div>
+
 
         <header class="site-header cf">
   
@@ -221,55 +259,12 @@
 
     <!--END .site-container-->
     </div>
-	<div class="container" style="max-width:960px">
 
-		<div class="row" ng-controller="IndexController" ng-init="validateSetup()">
-
-			<div class="col-md-4 col-md-push-8">
-
-			<!--	<div ng-if="setup == 'VALID'" class="alert alert-dismissible alert-success">
-					<strong>Well done!</strong><br />You sucessfully setup the demo.
-				</div>-->
-
-				<div ng-if="setup == 'INVALID'" class="alert alert-dismissible alert-danger">
-					<strong>Oh snap!</strong><br />
-
-					<span ng-if="code == 'SERVER_TIMEOUT'">Timeout occured, We could not talk to the server? is it running is your connection to twilio slow?</span>
-					
-					<span ng-if="code == 'TWILIO_ACCOUNT_SID_INVALID'">The environment variable TWILIO_ACCOUNT_SID is not set or incorrect. If you are on Heroku please update your application settings.</span>
-					
-					<span ng-if="code == 'TWILIO_AUTH_TOKEN_INVALID'">The environment variable TWILIO_AUTH_TOKEN is not set or incorrect. If you are on Heroku please update your application settings.</span>
-					
-					<span ng-if="code == 'TWILIO_WORKSPACE_SID_INVALID'">The environment variable TWILIO_WORKSPACE_SID is not set or incorrect. If you are on Heroku please update your application settings.</span>
-					
-					<span ng-if="code == 'TWILIO_ACCOUNT_NOT_ACCESSIBLE'">The application could not access the Twilio API with the provided credentials. Please verify Account Sid and Auth Token.</span>
-					
-					<span ng-if="code == 'TWILIO_WORKSPACE_NOT_ACCESSIBLE'">The application could not access the your Twilio Taskrouter workspace please verify the Workspace Sid.</span>
-					
-					<span ng-if="code == 'TWILIO_APPLICATION_SID_INVALID'">The TwiML Applications SID is not set, please complete <strong>http://&lt;your_application&gt;/setup</strong> first</span>
-
-					<span ng-if="code == 'TWILIO_APPLICATION_NOT_ACCESSIBLE'">The application could not access the TwiML Application.</span>
-				
-					<span ng-if="code == 'TWILIO_PHONE_NUMBER_UNKNOWN'">The configured Twilio number was not found. Please run <strong>http://&lt;your_application&gt;/setup</strong></span>
-
-					<span ng-if="code == 'TWILIO_PHONE_NUMBER_VOICE_URL_INVALID'">The Twilio number Voice URL does not point to this server. Please run <strong>http://&lt;your_application&gt;/setup</strong></span>
-
-					<span ng-if="code == 'TWILIO_UNKNOWN_ERROR'">Please check the server console.</span>
-
-				</div>
-
-			</div>
-
-		</div>
-
-	</div>
-
-	<script src="/scripts/angular.min.js"></script>
-	<script src="IndexController.js"></script>
-	<script src="scripts/jquery-2.1.4.min.js"></script>
+    <script src="scripts/jquery-2.1.4.min.js"></script>
     <script src="scripts/jquery.fitvids.js"></script>
     <script src="scripts/jquery.imagesloaded.min.js"></script>
-    <script src="scripts/main.js"></script> 
+    <script src="scripts/main.js"></script>  
+ 
 
 </body>
 </html>
