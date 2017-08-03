@@ -184,7 +184,7 @@ pre {
 
 /*===== Titles =====*/
 .site-title {
-    font-family: 'Righteous',helvetica,sans-serif;
+    font-family: 'Nunito';
     font-size: 26px;
     color: #90D4C5;
     line-height: 1.5em;
@@ -586,7 +586,7 @@ pre {
 }
 .thumbnail-title {
     color: #2c2c2c;
-    font-family: 'Righteous',helvetica,sans-serif;
+    font-family: 'Nunito';
     font-size: 21px;
     margin: 0 auto 10px auto;
     text-align: left;
