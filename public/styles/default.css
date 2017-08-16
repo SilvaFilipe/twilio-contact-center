@@ -115,7 +115,7 @@
 
 .workflow-controller .reservations .agent-waiting .panel-title
 {	
-	text-align:center;
+	text-align:left;
 	font-size:1.4em;
 	color: #787878;
 }
