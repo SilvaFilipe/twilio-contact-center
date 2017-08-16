@@ -52,7 +52,7 @@
 .workflow-controller .reservations .agent-reservation .accept-panel
 {
 	width: 20px;
-	text-align:right;
+	text-align:left;
 }
 
 .workflow-controller .reservations .agent-reservation .accept-panel button
