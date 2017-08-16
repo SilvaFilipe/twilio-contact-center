@@ -16,7 +16,7 @@
 <div ng-show="UI.warning.browser" class="panel panel-default ui-warning" ng-cloak>{{UI.warning.browser}}</div>
 <div ng-show="UI.warning.worker" class="panel panel-default ui-warning" ng-cloak>{{UI.warning.worker}}</div>
 
-<div class="container" style="width:350px">
+<div class="container" style="width:340px">
 
   <section class="workflow-controller" ng-cloak>
 
@@ -53,11 +53,12 @@
       <!-- reservation is waiting for acceptance -->
 
       <!-- agent is waiting for new reservation -->
+      <div class="container" style="width:340px">
       <div class="panel panel-default agent-waiting" ng-show="reservation == null && task == null">
         <div class="panel-heading">
           <h4 class="panel-title">Waiting for new task ...</h4>
         </div>
-      </div>
+      </div></div>
       <!-- agent is waiting for new reservation -->
 
       <!-- agent is working on a task -->
