@@ -8,6 +8,9 @@
   <link rel="stylesheet" href="/styles/bootstrap.css" type="text/css" />
   <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css"
       type="text/css" rel="stylesheet" />
+    <link data-require="bootstrap-css@*" data-semver="3.2.0" rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" />
+    <script data-require="angular.js@*" data-semver="1.3.0-beta.5" src="https://code.angularjs.org/1.3.0-beta.5/angular.js"></script>
+
 
 </head>
 
@@ -144,13 +147,14 @@
     <section ng-controller="PhoneController" ng-cloak class="phone-controller" >
 
       <input style="font-size:2em; padding-left:10px;" id="dialText" ng-show="isActive == false" ng-model="phoneNumber" type="text" name="phoneNumber" placeholder="+..." />
-      <div class="phone-number" style="font-size:2em; padding-left:10px" id="dialText" ng-if="isActive == true" />{{phoneNumber}}</div>
+      <div class="phone-number" style="font-size:2em; padding-left:10px" ng-if="isActive == true" />{{phoneNumber}}</div>
 
       <div class="keypad">
 
         <div ng-click="phoneNumber=''; addDigit('+351')" class="digit">PT</div>
         <div ng-click="focusInput()" class="digit">FR</div>
-         <div class="btn btn-primary" event-focus="click" event-focus-id="dialText">Declarative Focus</div>
+         <br><input type="email" id="email" class="form-control"><br>
+         <div class="btn btn-primary" event-focus="click" event-focus-id="email">Declarative Focus</div>
         <div ng-click="phoneNumber=''; addDigit('')"class="digit">&#x232b;</div>
 
       </div>
