@@ -142,15 +142,15 @@
      
     <section ng-controller="PhoneController" ng-cloak class="phone-controller" >
 
-      <input id="dialText" style="font-size:2em; padding-left:10px;" ng-show="isActive == false" ng-model="phoneNumber" type="text" name="phoneNumber" placeholder="+..." />
+      <input autofocus id="dialText" style="font-size:2em; padding-left:10px;" ng-show="isActive == false" ng-model="phoneNumber" type="text" name="phoneNumber" placeholder="+..." />
       <div class="phone-number" style="font-size:2em; padding-left:10px" ng-if="isActive == true" />{{phoneNumber}}</div>
 
       <div class="keypad">
 
         <div ng-click="phoneNumber=''; addDigit('+351')" class="digit">PT</div>
-        <div set-focus='dialText' class="digit">FR</div>      
+        <div ng-click="phoneNumber=''; addDigit('+33')" class="digit">FR</div>      
         <div ng-click="phoneNumber=''; addDigit('')"class="digit">&#x232b;</div>
-        <button id='btn' set-focus='dialText'>click1</button>
+
 
       </div>
 
