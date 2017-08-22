@@ -22,9 +22,10 @@
     <div class="panel panel-default">
 
       <div class="panel-body">        
-        <input type="button"
-        style="background-image:url('https://imghost.io/images/2017/08/21/search_icondc02d.png');height:21px;width:21px;border-width:0px;" value="-" onclick="zoomSub();">
-        <input type="button" value="+" onclick="zoomAdd();">
+        <input type="button" onclick="zoomSub();"
+        style="background-image:url('https://imghost.io/images/2017/08/22/zoomSub_icon.png');height:25px;width:25px;border-width:0px;">
+        <input type="button" onclick="zoomAdd();"
+        style="background-image:url('https://imghost.io/images/2017/08/22/zoomAdd_icon.png');height:25px;width:25px;border-width:0px;">
         <span><h3 class="name" style="font-size:1.2em" class="page-header">Agent: {{worker.friendlyName}}</h3>
         <h4 ng-click="logout()" style="font-size:0.7em"  class="btn btn-primary" >Logout</h4> </span>
 
