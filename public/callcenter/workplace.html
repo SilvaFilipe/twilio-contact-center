@@ -144,7 +144,7 @@
     <section ng-controller="PhoneController" ng-cloak class="phone-controller" >
 
       <input style="font-size:2em; padding-left:10px;" id="dialText" ng-show="isActive == false" ng-model="phoneNumber" type="text" name="phoneNumber" placeholder="+..." />
-      <div class="phone-number" style="font-size:2em; padding-left:10px" ng-if="isActive == true" />{{phoneNumber}}</div>
+      <div class="phone-number" style="font-size:2em; padding-left:10px" id="dialText" ng-if="isActive == true" />{{phoneNumber}}</div>
 
       <div class="keypad">
 
