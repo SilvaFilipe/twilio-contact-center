@@ -1,4 +1,4 @@
-angular.module('demo', [])
+angular.module('callcenterApplication', [])
 
   .factory('focus', function($timeout, $window) {
     return function(id) {
@@ -30,6 +30,6 @@ angular.module('demo', [])
   
   .controller('Ctrl', function($scope, focus) {
     $scope.focusInput = function() {
-      focus('dialText');
+      focus('email');
     };
   });

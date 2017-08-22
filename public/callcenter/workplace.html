@@ -154,7 +154,7 @@
         <div ng-click="phoneNumber=''; addDigit('+351')" class="digit">PT</div>
         <div ng-click="focusInput()" class="digit">FR</div>
          <br><input type="email" id="email" class="form-control"><br>
-         <div class="btn btn-primary" event-focus="click" event-focus-id="email">Declarative Focus</div>
+         <div class="btn btn-primary" ng-click="focusInput()">Imperative Focus</div>
         <div ng-click="phoneNumber=''; addDigit('')"class="digit">&#x232b;</div>
 
       </div>
