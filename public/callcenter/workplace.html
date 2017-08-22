@@ -149,10 +149,12 @@
       <div class="keypad">
 
         <div ng-click="phoneNumber=''; addDigit('+351')" class="digit">PT</div>
-        <div ng-click="phoneNumber=''; focus="{{dialText}}"" class="digit">FR</div>
+        <div ng-click="focusInput()" class="digit">FR</div>
         <div ng-click="phoneNumber=''; addDigit('')"class="digit">&#x232b;</div>
 
       </div>
+
+      
 
       <button class="button-call" ng-if="isActive == false" ng-click="call(phoneNumber)">CALL</button>
       <button class="button-hangup" ng-if="isActive == true" ng-click="hangup()">HANGUP</button>
@@ -181,6 +183,7 @@
   <script src="PhoneController.js"></script>
   <script src="ChatController.js"></script>
   <script src="VideoController.js"></script>
+  <script src="PasteController.js"></script>
   <script src="/scripts/directives/TaskWaitingTimeFilter.js"></script>
 
 </body>
