@@ -652,7 +652,7 @@ div.image img { width: 100%; }
 
 /*===== Paginations =====*/
 nav[role="navigation"] {
-  text-align: center;
+  text-align: left;
 }
 
 .cd-pagination {
