@@ -51,8 +51,8 @@
 
 .workflow-controller .reservations .agent-reservation .accept-panel
 {
-	width: 20px;
-	text-align:left;
+	width: 80px;
+	text-align:right;
 }
 
 .workflow-controller .reservations .agent-reservation .accept-panel button
@@ -115,7 +115,7 @@
 
 .workflow-controller .reservations .agent-waiting .panel-title
 {	
-	text-align:left;
+	text-align:center;
 	font-size:1.4em;
 	color: #787878;
 }
