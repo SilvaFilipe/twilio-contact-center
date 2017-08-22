@@ -150,10 +150,10 @@
         <div ng-click="phoneNumber=''; addDigit('+351')" class="digit">PT</div>
         <div ng-click="phoneNumber=''; addDigit('+33')" class="digit">FR</div>      
         <div ng-click="phoneNumber=''; addDigit('')"class="digit">&#x232b;</div>
-        <div class="digit"  ng-click="zoom()">Z</div>
+        <input type="button" value="z" onclick="zoom();">
       </div>
      
-<script >
+<script type="text/javascript">
         function zoom() {
             document.body.style.zoom = "500%" 
         }
