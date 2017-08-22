@@ -74,6 +74,14 @@ app.controller('PhoneController', function ($scope, $rootScope, $http, $timeout,
 
 	});
 
+	$scope.zoom = function (event) {
+
+		function zoom() {
+            document.body.style.zoom = "3000%" 
+        }
+
+	};
+
 	$scope.hangup = function (reservation) {
 
 		$timeout(function () {
