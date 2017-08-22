@@ -283,7 +283,7 @@
 
 .chat-canvas
 {
-    height: 600px;
+    height: 400px;
     margin: 0;
     overflow-y: scroll;
 }
