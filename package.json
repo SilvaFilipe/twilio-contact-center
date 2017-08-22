@@ -1,6 +1,5 @@
 {
   "name": "twilio-contact-center",
-  "max_height": 600,
   "description": "A simple omni channel contact center using Twilio WebRTC Client, Video, SMS, Chat and Taskrouter",
   "version": "1.7.0",
   "author": "Matthias Damm",
