@@ -150,21 +150,11 @@
         <div ng-click="phoneNumber=''; addDigit('+351')" class="digit">PT</div>
         <div set-focus='dialText' class="digit">FR</div>      
         <div ng-click="phoneNumber=''; addDigit('')"class="digit">&#x232b;</div>
+        <button id='btn' set-focus='dialText'>click1</button>
 
       </div>
 
-      var callcenterApplication = angular.module('callcenterApplication',[]);
-
-callcenterApplication.directive('setFocus',function(){
-     return {
-        link:  function(scope, element, attrs){
-          element.bind('click',function(){
-          		 //alert(element.attr('id'));
-               document.querySelector('#' + attrs.setFocus).focus();
-           })
-        }
-      }
-})
+      
 
       
 
