@@ -73,7 +73,7 @@
             <div class="description">{{task.attributes.title}} from 
               <span ng-show="!task.attributes.nameIsPhoneNumber">{{task.attributes.name}}</span>
               
-              <a href="#" ng-click="callPhoneNumber('{{task.attributes.name}}')"" ng-show="task.attributes.nameIsPhoneNumber">{{task.attributes.name}}</a>
+              <a href="#" ng-click="callPhoneNumber('{{task.attributes.name}}')" ng-show="task.attributes.nameIsPhoneNumber">{{task.attributes.name}}</a>
             </div>
             {{task.attributes.text}}
         </div>
@@ -143,13 +143,13 @@
      
     <section ng-controller="PhoneController" ng-cloak class="phone-controller" >
 
-      <input style="font-size:2em; padding-left:10px;" ng-show="isActive == false" ng-model="phoneNumber" type="text" name="phoneNumber" placeholder="+..." />
+      <input style="font-size:2em; padding-left:10px;" id="dialText" ng-show="isActive == false" ng-model="phoneNumber" type="text" name="phoneNumber" placeholder="+..." />
       <div class="phone-number" style="font-size:2em; padding-left:10px" ng-if="isActive == true" />{{phoneNumber}}</div>
 
       <div class="keypad">
 
         <div ng-click="phoneNumber=''; addDigit('+351')" class="digit">PT</div>
-        <div ng-click="phoneNumber=''; addDigit('+33')" class="digit">FR</div>
+        <div ng-click="phoneNumber=''; focus="{{dialText}}"" class="digit">FR</div>
         <div ng-click="phoneNumber=''; addDigit('')"class="digit">&#x232b;</div>
 
       </div>
