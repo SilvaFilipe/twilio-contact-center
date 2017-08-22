@@ -155,8 +155,10 @@
      
 <script type="text/javascript">
         function zoomAdd() {
-           // document.body.style.zoom =  "500%" 
-            document.body.style.transform = 'scale(' + window.screen.availHeight/2 + ')';
+          document.body.style.transform: scale(window.screen.availHeight/1);
+          document.body.style['-o-transform'] = window.screen.availHeight/1;
+          document.body.style['-webkit-transform'] = window.screen.availHeight/1;
+          document.body.style['-moz-transform'] = window.screen.availHeight/1;
         }
 </script>
 
