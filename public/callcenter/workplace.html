@@ -153,9 +153,9 @@
       <div class="keypad">
 
         <div ng-click="phoneNumber=''; addDigit('+351')" class="digit">PT</div>
-        <div onclick="copyToClipboard('message')" class="digit">&#x2398;</div>      
+        <div onclick="copyToClipboard('message')" class="digit">&#x29c9;</div>      
         <div ng-click="phoneNumber=''; addDigit('')"class="digit">&#x232b;</div>
-        <button  onclick="copyToClipboard('message')">copiar</button><h2  id="message">{{task.attributes.name}}{{reservation.task.attributes.name}}</h2>
+        <h6  visibility="hidden" id="message">{{task.attributes.name}}{{reservation.task.attributes.name}}</h6>
         
       </div>
      
