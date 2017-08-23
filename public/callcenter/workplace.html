@@ -24,14 +24,15 @@
       <div class="panel-body"> 
        <span> <div class="logout">
         <input type="button" onclick="zoomSub();"
-        style="background-image:url('https://imghost.io/images/2017/08/22/zoomSub_icon84bea.png');height:25px;width:25px;border-width:0px;">
+        style="background-image:url('https://imghost.io/images/2017/08/22/zoomSub_icon.png');height:20px;width:20px;border-width:0px;">
         <input type="button" onclick="zoomAdd();"
-        style="background-image:url('https://imghost.io/images/2017/08/22/zoomAdd_icond1a7e.png');height:25px;width:25px;border-width:0px;">
+        style="background-image:url('https://imghost.io/images/2017/08/22/zoomAdd_icon.png');height:20px;width:20px;border-width:0px;">
         </div>    
-        <h3 class="name" style="font-size:1.1em" class="page-header">Agent: {{worker.friendlyName}}</h3>       
-        <h4 ng-click="logout()" style="font-size:0.7em"  class="btn btn-primary" >Logout</h4> </span>
-        <div><span style="font-size:1em" ng-class="{'label-success': worker.activityName == 'Idle', 'label-danger': worker.activityName == 'Busy', 'label-default': worker.activityName == 'Offline', 'label-warning': worker.activityName == 'Reserved'}" class="label">{{worker.activityName}}</span></div>
-
+        <h3 class="name" style="font-size:1.1em" class="page-header">Agent: {{worker.friendlyName}}</h3>               
+        <input type="button" onclick="logout();"
+        style="background-image:url('https://imghost.io/images/2017/08/23/logout_icon.png');height:20px;width:20px;border-width:0px;">
+      <div><span style="font-size:1em" ng-class="{'label-success': worker.activityName == 'Idle', 'label-danger': worker.activityName == 'Busy', 'label-default': worker.activityName == 'Offline', 'label-warning': worker.activityName == 'Reserved'}" class="label">{{worker.activityName}}</span></div>
+      
       <div class="reservations">
 
       <!-- reservation is waiting for acceptance -->
