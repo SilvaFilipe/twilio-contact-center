@@ -155,12 +155,8 @@
         <div ng-click="phoneNumber=''; addDigit('+351')" class="digit">PT</div>
         <div ng-click="phoneNumber=''; addDigit('+33')" class="digit">FR</div>      
         <div ng-click="phoneNumber=''; addDigit('')"class="digit">&#x232b;</div>
-        <button style="background-image:url('https://imghost.io/images/2017/08/22/copy_icon.png');
-                      height:21px;width:21px;border-width:0px;"
-                      onclick="copyToClipboard('message')">copiar</button><h2 id="message"></h2>
-        <button style="background-image:url('https://imghost.io/images/2017/08/22/copy_icon.png');
-                      height:21px;width:21px;border-width:0px;"
-                      onclick="document.getElementById('message').innerHTML='{{reservation.task.attributes.name}}' ;">coppp</button>
+        <button onclick="copyToClipboard('message')">copiar</button><h2 id="message"></h2>
+        <button onclick="document.getElementById('message').innerHTML='{{reservation.task.attributes.name}}' ;">coppp</button>
       </div>
      
 <script type="text/javascript">
