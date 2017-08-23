@@ -16,7 +16,7 @@
 <div ng-show="UI.warning.worker" class="panel panel-default ui-warning" ng-cloak>{{UI.warning.worker}}</div>
 
 <div class="container" style="width:560px">
-
+<h3 position="absolute" top="10px" left="10px" style="font-size:1.1em" >Agent: {{worker.friendlyName}}</h3>  
   <section class="workflow-controller" ng-cloak>
 
     <div class="panel panel-default">
@@ -28,7 +28,7 @@
         <input type="button" onclick="zoomAdd();"
         style="background-image:url('https://imghost.io/images/2017/08/22/zoomAdd_icond1a7e.png');height:25px;width:25px;border-width:0px;">
         </div>    
-        <h3 position="absolute" top="10px" left="10px" style="font-size:1.1em" >Agent: {{worker.friendlyName}}</h3>       
+             
         <h4 ng-click="logout()" style="font-size:0.7em"  class="btn btn-primary" >Logout</h4> </span>
         <div><span style="font-size:1em" ng-class="{'label-success': worker.activityName == 'Idle', 'label-danger': worker.activityName == 'Busy', 'label-default': worker.activityName == 'Offline', 'label-warning': worker.activityName == 'Reserved'}" class="label">{{worker.activityName}}</span></div>
 
