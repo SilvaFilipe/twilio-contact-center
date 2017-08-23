@@ -156,7 +156,7 @@
         <div ng-click="phoneNumber=''; addDigit('+33')" class="digit">FR</div>      
         <div ng-click="phoneNumber=''; addDigit('')"class="digit">&#x232b;</div>
         <button  onclick="copyToClipboard('message')">copiar</button><h2 font-size"20%" id="message"></h2>
-        <button  onclick="document.getElementById('message').innerHTML=atribute ;">coppp</button>
+        <button  onclick="document.getElementById('message').innerHTML=reservation.task.attributes.name ;">coppp</button>
       </div>
      
 <script type="text/javascript">
@@ -185,7 +185,6 @@ var zoomAux=1;
 </section>
 </div>
 <script>
-  var atribute = reservation.task.attributes.name;
             		function copyToClipboard(elementId) {
  					var aux = document.createElement("input");
                     aux.setAttribute("value", document.getElementById(elementId).innerHTML);
