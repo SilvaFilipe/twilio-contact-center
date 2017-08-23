@@ -155,6 +155,12 @@
         <div ng-click="phoneNumber=''; addDigit('+351')" class="digit">PT</div>
         <div ng-click="phoneNumber=''; addDigit('+33')" class="digit">FR</div>      
         <div ng-click="phoneNumber=''; addDigit('')"class="digit">&#x232b;</div>
+        <button style="background-image:url('https://imghost.io/images/2017/08/22/copy_icon.png');
+                      height:21px;width:21px;border-width:0px;"
+                      onclick="copyToClipboard('message')">copiar</button><h2 id="message"></h2>
+        <button style="background-image:url('https://imghost.io/images/2017/08/22/copy_icon.png');
+                      height:21px;width:21px;border-width:0px;"
+                      onclick="document.getElementById('message').innerHTML='{{reservation.task.attributes.name}}' ;">coppp</button>
       </div>
      
 <script type="text/javascript">
@@ -181,9 +187,17 @@ var zoomAux=1;
    </div>
 
 </section>
-
 </div>
-
+<script>
+            		function copyToClipboard(elementId) {
+ 					var aux = document.createElement("input");
+                    aux.setAttribute("value", document.getElementById(elementId).innerHTML);
+                    document.body.appendChild(aux);
+                    aux.select();
+                    document.execCommand("copy");
+                    document.body.removeChild(aux);
+					}
+					</script>
   <script type="text/javascript" src="//media.twiliocdn.com/sdk/js/client/v1.4/twilio.min.js"></script>
   <script type="text/javascript" src="//media.twiliocdn.com/taskrouter/js/v1.9.3/taskrouter.min.js"></script>
   <script src="https://media.twiliocdn.com/sdk/js/common/v0.1/twilio-common.js"></script>
