@@ -21,9 +21,12 @@ module.exports.welcome = function (req, res) {
 		language: 'en-US',
 		hints: keywords.join()
 	})
-
+		//IVR EN {{{
 		//gather.say(req.configuration.ivr.text)
-
+		//IVR EN }}}
+		
+		
+		//IVR PT {{{
 		gather.play("https://secure2.domdigital.pt/domdigital/micael/mp3/marque_numero.mp3")
 		gather.pause({length: 1})
 
@@ -53,9 +56,16 @@ module.exports.welcome = function (req, res) {
 				}
 				
 		}
+		//IVR PT }}}
 
+	//IVR EN {{{
 	//twiml.say('You did not say anything or enter any digits.')
+	//IVR EN }}}
+
+	//IVR PT {{{
 	twiml.play("https://secure2.domdigital.pt/domdigital/micael/mp3/nao_marcou.mp3")
+	//IVR PT }}}
+
 	twiml.pause({length: 1})
 	twiml.redirect({method: 'GET'}, 'welcome')
 
@@ -102,8 +112,16 @@ module.exports.selectTeam = function (req, res) {
 	/* the caller pressed a key that does not match any team */
 	if (team === null) {
 		// redirect the call to the previous twiml
+
+		//IVR EN {{{
 		//twiml.say('Your selection was not valid, please try again')
+		//IVR EN }}}
+		
+		//IVR PT {{{
 		twiml.play("https://secure2.domdigital.pt/domdigital/micael/mp3/selecao_invalida.mp3")
+		//IVR PT }}}
+
+
 		twiml.pause({length: 2})
 		twiml.redirect({ method: 'GET' }, 'welcome')
 	} else {
@@ -115,7 +133,12 @@ module.exports.selectTeam = function (req, res) {
 			timeout: 5
 		})
 
+
+		//IVR EN {{{
 		//gather.say('Press a key if you want a callback from ' + team.friendlyName + ', or stay on the line')
+		//IVR EN }}}
+		
+			//IVR PT {{{
 			gather.play("https://secure2.domdigital.pt/domdigital/micael/mp3/pressione_volta.mp3")
 			if(team.friendlyName=='Sales'){
 					gather.play("https://secure2.domdigital.pt/domdigital/micael/mp3/vendas.mp3")
@@ -126,6 +149,7 @@ module.exports.selectTeam = function (req, res) {
 				}
 			
 			gather.play("https://secure2.domdigital.pt/domdigital/micael/mp3/continue.mp3")
+			//IVR PT }}}
 
 		/* create task attributes */
 		const attributes = {
@@ -163,12 +187,26 @@ module.exports.createTask = function (req, res) {
 
 	taskrouterHelper.createTask(req.configuration.twilio.workflowSid, attributes)
 		.then(task => {
+
+			//IVR EN {{{
 			//twiml.say('Thanks for your callback request, an agent will call you back soon.')
+			//IVR EN }}}
+
+			//IVR PT {{{
 			twiml.play("https://secure2.domdigital.pt/domdigital/micael/mp3/obrigado_pedido.mp3")
+			//IVR PT }}}
+
 			twiml.hangup()
 		}).catch(error => {
-			//twiml.say('An application error occured, the demo ends now')
+
+			//IVR EN {{{
+			//twiml.say('An application error occured, it ends now')
+			//IVR EN }}}
+			
+			//IVR PT {{{
 			twiml.play("https://secure2.domdigital.pt/domdigital/micael/mp3/erro.mp3")
+			//IVR PT }}}
+
 		}).then(() => {
 			res.send(twiml.toString())
 		})
